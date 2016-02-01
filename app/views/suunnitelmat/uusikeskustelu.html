@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Uusi keskustelu</h2>
+<br>
+
+<div class="form-group">
+    <label>Otsikko</label>
+    <input type="text" class="form-group">
+</div>
+
+
+<div class="form-group">
+    <!--    <label>Viesti</label> -->
+    <textarea id="viesti" rows="10" cols="70">
+    </textarea>
+
+    <br><br>
+
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus" 
+       class="btn btn-primary">Selaa keskusteluita</a>
+
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" class="btn btn-primary">Palaa etusivulle</a>
+
+
+    {% endblock %}

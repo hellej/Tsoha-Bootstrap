@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Kerhohuone</h1>
+
+<!-- Painikkeet tähän -->
+<p>
+    <button class="btn btn-default">Muokkaa</button> <a href="#" class="btn btn-danger">Poista</a>
+    <a href="aihelistaus" class="btn btn-default">Palaa aiheisiin </a> 
+</p>
+<!-- Tiedot tulee listana tähän -->
+
+<ul>
+    <li><strong>Lisäyspäivä:</strong> 3.5.2016</li>
+    <li><strong>Luoja:</strong> Jose</li>
+    <li><strong>Viestejä</strong> <label class="label label-danger">kesken</label></li>
+</ul>
+<!-- Kuvaus tulee tähän -->
+<p>
+    Kerhohuoneeseen liittyvät keskustelut yms.
+</p>
+{% endblock %}

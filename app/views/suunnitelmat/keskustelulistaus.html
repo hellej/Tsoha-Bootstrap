@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Viimeisimmät keskustelut</h1>
+<br>
+
+<p>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu" 
+       class="btn btn-success">Aloita uusi keskustelu</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" 
+       class="btn btn-primary">Palaa etusivulle</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Otsikko</th>
+            <th>Aloittaja</th>
+            <th>Päivämäärä</th>
+            <th>Viestejä</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Listataan pelit tähän -->
+        <tr>
+            <td><a href="#">Uusi kahvinkeitin</a></td>
+            <td><a href="#">Maija Mantsalainen</a></td>
+            <td>3.5.2016</td>
+            <th>200</th>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

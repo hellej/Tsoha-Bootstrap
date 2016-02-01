@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<p>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" class="btn btn-primary">Palaa etusivulle</a>
+</p>
+
+
+<h2>Hakutulokset</h2>
+
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Aika</th>
+            <th>Käyttäjä</th>
+            <th>Keskustelu</th>      
+            <th>Lukematta</th>
+            <th>Lukeneet</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Listataan viestit tähän, otsikko toimii linkkinä keskusteluun-->
+        <tr>
+            <td><a href="#">1.1.2016 15:03</a></td>
+            <td><a href="#">Maija Mantsalainen</a></td>
+            <td><a href="#">Kahvinkeittimen hankinta</a></td>
+            <td> Kyllä </td>
+            <td>4/10</td>
+        </tr>
+    </tbody>
+
+</table>
+
+
+{% endblock %}

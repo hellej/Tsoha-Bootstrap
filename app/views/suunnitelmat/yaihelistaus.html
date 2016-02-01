@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Listaus aiheista</h1>
+
+<p>
+    <a href="#" class="btn btn-success">Lisää aihe</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/yetusivu" class="btn btn-primary">Palaa ylläpidon etusivulle</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Aihe</th>
+            <th>Luoja</th>
+            <th>Lisäyspäivä</th>
+            <th>Viestejä</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Listataan pelit tähän -->
+        <tr>
+            <td><a href="#">kerhohuone</a></td>
+            <td><a href="#" >Maija Mantsalainen</a></td>
+            <td>3.5.2016</td>
+            <td>78</td>
+            <td><a class="btn btn-default btn-sm" href="#">poista</a></td>
+        </tr>
+    </tbody>
+</table>
+
+{% endblock %}

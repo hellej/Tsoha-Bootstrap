@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Maofoorum</h1> 
+
+<p>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu"                                             
+       class="btn btn-success">Aloita uusi keskustelu</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus"                           
+       class="btn btn-success">Selaa keskusteluita</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/aihelistaus"                                  
+       class="btn btn-success">Selaa aiheita</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/yetusivu""                                             
+       class="btn btn-primary">Ylläpitäjän työkalut</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/"   
+       class="btn btn-danger">Kirjaudu ulos</a>
+</p>
+<br>
+
+<h2>Etsi viestejä:</h2>
+
+<form> 
+
+    Kirjoittajan perusteella: <input type="text" name="hnimi" </input>
+    Aiheen perusteella: <input type="text" name"haihe" </input>
+    <br> <br>
+    Aikaväliltä (YYYYMMDD – YYYYMMDD): <br> <input type="text"</input> <input type="text"</input>
+    <br> <br>   
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/viestilistaus"   
+       class="btn btn-primary">haku</a>
+</form>
+<br>
+
+
+
+<h2>Viimeisimmät viestit</h2>
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Aika</th>
+            <th>Käyttäjä</th>
+            <th>Keskustelu</th>      
+            <th>Lukematta</th>
+            <th>Lukeneet</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Listataan viestit tähän, otsikko toimii linkkinä keskusteluun-->
+        <tr>
+            <td><a href="#">1.1.2016 15:03 </a></td>
+            <td><a href="#">Maija Mantsalainen</a></td>
+            <td><a href="#">Kahvinkeittimen hankinta</a></td>
+            <td> Kyllä </td>
+            <td>4/10</td>
+        </tr>
+    </tbody>
+
+</table>
+{% endblock %}
