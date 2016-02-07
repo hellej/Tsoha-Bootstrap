@@ -7,7 +7,13 @@ Yleisiä linkkejä:
 
 ## HTML -pohjat
 
-Linkit tekemiini html -luonnoksiin löytyvät foorumin etusivun painikkeista.
+* [Linkki foorumin kirjautumissivulle] (http://joohelle.users.cs.helsinki.fi/helle/)
+* [Linkki uuden keskustelun aloitussivulle] (http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu)
+* [Linkki keskustelulistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus)
+* [Linkki aihelistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus)
+* [Linkki aiheiden muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/yaihelistaus)
+* [Linkki keskusteluiden muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/ykeskustelulistaus)
+* [Linkki käyttäjätietojen muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/ykayttajalistaus)
 
 
 ## Työn aihe

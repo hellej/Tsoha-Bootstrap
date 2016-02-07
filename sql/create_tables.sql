@@ -8,25 +8,23 @@ kuvaus varchar(400) NOT NULL,
 luontiaika timestamp
 );
 
+CREATE TABLE Ryhmakayttaja(
+id SERIAL PRIMARY KEY,
+ryhma_id INTEGER REFERENCES Ryhma(id)
+kayttaja_id INTEGER REFERENCES Kayttaja(id)
+);
 
 CREATE TABLE Kayttaja(
 id SERIAL PRIMARY KEY,
-ktunnus varchar(15) NOT NULL,
+ktunnus varchar(15) NOT NULL, 
 nimi varchar(30) NOT NULL,
 sposti varchar(30),
 salasana varchar(15) NOT NULL,
 yllapitaja boolean DEFAULT FALSE,
-ryhma_id INTEGER REFERENCES Ryhma(id)
 );
 
 
 CREATE TABLE Kirjoittaja(
-id SERIAL PRIMARY KEY,
-kayttaja_id INTEGER REFERENCES Kayttaja(id)
-);
-
-
-CREATE TABLE Lukija(
 id SERIAL PRIMARY KEY,
 kayttaja_id INTEGER REFERENCES Kayttaja(id)
 );
@@ -38,16 +36,21 @@ nimi varchar(30),
 luontiaika date
 );
 
+CREATE TABLE Keskusteluaihe(
+id SERIAL PRIMARY KEY,
+aihe_id INTEGER REFERENCES Aihe(id),
+keskustelu_id INTEGER REFERENCES Keskustelu(id)
+);
+
 CREATE TABLE Keskustelu(
 id SERIAL PRIMARY KEY,
 otsikko varchar(40) NOT NULL,
 aika timestamp,
 kirjoittaja_id INTEGER REFERENCES Kirjoittaja(id),
-aihe_id INTEGER REFERENCES Aihe(id)
 );
 
 
-CREATE TABLE Viesti(
+CREATE TABLE Vastine(
 id SERIAL PRIMARY KEY,
 sisalto varchar(400) NOT NULL,
 aika timestamp,
