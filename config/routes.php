@@ -51,3 +51,7 @@ $routes->get('/ykayttajalistaus', function() {
 $routes->get('/kayttajaesittely', function() {
     HelloWorldController::kayttajaesittely();
 });
+
+$routes->get('/kayttajamuokkaus', function() {
+    HelloWorldController::kayttajamuokkaus();
+});

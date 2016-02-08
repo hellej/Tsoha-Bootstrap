@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+
+  <h1>Muokkaa käyttäjän Maijam tietoja</h1>
+
+  <form>
+    <div class="form-group">
+      <label>Nimi</label>
+      <input type="text" class="form-control" value="Maija Mantsalainen">
+    </div>
+    <div class="form-group">
+      <label>Käyttäjätunnus</label>
+      <input type="text" class="form-control" value="Maijam">
+    </div>
+    <div class="form-group">
+      <label>Sähköposti</label>
+      <input type="text" class="form-control" value="maija.mantsalainen@helsinki.fi">
+    </div>
+    <div class="form-group">
+      <label>Salasana</label>
+      <input type="text" class="form-control" value="*******">
+      </textarea>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}
