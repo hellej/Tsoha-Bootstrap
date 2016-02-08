@@ -47,3 +47,7 @@ $routes->get('/yetusivu', function() {
 $routes->get('/ykayttajalistaus', function() {
     HelloWorldController::ykayttajalistaus();
 });
+
+$routes->get('/kayttajaesittely', function() {
+    HelloWorldController::kayttajaesittely();
+});

@@ -14,6 +14,7 @@ Yleisiä linkkejä:
 * [Linkki aiheiden muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/yaihelistaus)
 * [Linkki keskusteluiden muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/ykeskustelulistaus)
 * [Linkki käyttäjätietojen muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/ykayttajalistaus)
+* [Linkki käyttäjäesittelyyn] (http://joohelle.users.cs.helsinki.fi/helle/kayttajaesittely)
 
 
 ## Työn aihe
