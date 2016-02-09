@@ -5,7 +5,14 @@ Yleisiä linkkejä:
 * [Linkki dokumentaatiooni](https://github.com/hellej/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 * [Linkki sovelluksen etusivulle] (http://joohelle.users.cs.helsinki.fi/helle/foorumi)
 
-## HTML -pohjat
+
+## HTML -tietokantojen tiedoilla
+
+* [Linkki käyttäjälistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus)
+* [Linkki keskustelulistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus)
+* [Linkki aihelistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus)
+
+## HTML -pohjaluonnokset
 
 * [Linkki foorumin kirjautumissivulle] (http://joohelle.users.cs.helsinki.fi/helle/)
 * [Linkki uuden keskustelun aloitussivulle] (http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu)
@@ -19,4 +26,4 @@ Yleisiä linkkejä:
 
 ## Työn aihe
 
-Laita tähän aihekuvaus tai [linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Keskustelufoorumi.html) 
+[linkki valmiiseen aiheeseen](http://advancedkittenry.github.io/suunnittelu_ja_tyoymparisto/aiheet/Keskustelufoorumi.html) 
