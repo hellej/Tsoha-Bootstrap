@@ -12,7 +12,11 @@ class HelloWorldController extends BaseController {
     }
 
     public static function sandbox() {
-        View::make('suunnitelmat/aihelistaus.html');
+        $kayttajat = Kayttaja::all();
+        $keskustelut = Keskustelu::all();
+        $maija = Kayttaja::find(1);
+        Kint::dump($keskustelut);
+        Kint::dump($maija);
     }
 
     public static function aihekuvaus() {
@@ -51,15 +55,15 @@ class HelloWorldController extends BaseController {
 
         View::make('suunnitelmat/ykayttajalistaus.html');
     }
-    
+
     public static function kayttajaesittely() {
 
         View::make('suunnitelmat/kayttajaesittely.html');
     }
-    
-        public static function kayttajamuokkaus() {
+
+    public static function kayttajamuokkaus() {
 
         View::make('suunnitelmat/kayttajamuokkaus.html');
     }
-    
+
 }

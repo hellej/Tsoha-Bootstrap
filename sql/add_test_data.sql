@@ -10,7 +10,7 @@ VALUES(1,1);
 
 INSERT INTO Kirjoittaja (kayttaja_id) VALUES(1);
 
-INSERT INTO Aihe (nimi, luontiaika) VALUES('varasto', NOW());
+INSERT INTO Aihe (nimi, luontiaika, luoja_id) VALUES('varasto', NOW(), 1);
 
 INSERT INTO Keskustelu(otsikko, aika, kirjoittaja_id) 
 VALUES('uusi kahvinkeitin', NOW(), 1);

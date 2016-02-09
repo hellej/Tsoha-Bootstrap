@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Viimeisimmät keskustelut</h1>
+<br>
+
+<p>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu" 
+       class="btn btn-success">Aloita uusi keskustelu</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" 
+       class="btn btn-primary">Palaa etusivulle</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Otsikko</th>
+            <th>Aloittaja</th>
+            <th>Luontiaika</th>
+            <th>Viestejä</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for keskustelu in keskustelut %}
+        
+        <tr>
+            <td><a href="#">{{keskustelu.otsikko}}</td>
+            <td><a href="#">{{keskustelu.kirjoittaja_id}}</td>
+            <td>{{keskustelu.aika}}</td>
+            <th>TBA</th>
+        </tr>
+
+        {% endfor %}
+        
+    </tbody>
+</table>
+{% endblock %}

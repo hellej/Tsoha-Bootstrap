@@ -31,6 +31,7 @@ kayttaja_id INTEGER REFERENCES Kayttaja(id)
 CREATE TABLE Aihe(
 id SERIAL PRIMARY KEY,
 nimi varchar(30),
+luoja_id INTEGER REFERENCES Kayttaja(id),
 luontiaika date
 );
 

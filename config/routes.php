@@ -17,7 +17,7 @@ $routes->get('/aihekuvaus', function() {
 });
 
 $routes->get('/aihelistaus', function() {
-    HelloWorldController::aihelistaus();
+    AiheController::index();
 });
 
 $routes->get('/yaihelistaus', function() {
@@ -29,7 +29,7 @@ $routes->get('/viestilistaus', function() {
 });
 
 $routes->get('/keskustelulistaus', function() {
-    HelloWorldController::keskustelulistaus();
+    KeskusteluController::index();
 });
 
 $routes->get('/ykeskustelulistaus', function() {
@@ -46,6 +46,10 @@ $routes->get('/yetusivu', function() {
 
 $routes->get('/ykayttajalistaus', function() {
     HelloWorldController::ykayttajalistaus();
+});
+
+$routes->get('/kayttajalistaus', function() {
+    KayttajaController::index();
 });
 
 $routes->get('/kayttajaesittely', function() {
