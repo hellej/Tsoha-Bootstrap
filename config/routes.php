@@ -1,5 +1,37 @@
 <?php
 
+
+
+$routes->get('/kayttajalistaus', function() {
+    KayttajaController::index();
+});
+
+$routes->post('/kayttaja', function() {
+    KayttajaController::store();
+});
+
+$routes->get('/kayttajalistaus/uusi', function() {
+    KayttajaController::create();
+});
+
+$routes->get('/kayttajalistaus/:id', function($id) {
+    KayttajaController::show($id);
+});
+
+
+
+$routes->get('/aihelistaus', function() {
+    AiheController::index();
+});
+
+
+
+$routes->get('/keskustelulistaus', function() {
+    KeskusteluController::index();
+});
+
+
+
 $routes->get('/', function() {
     HelloWorldController::etusivu();
 });
@@ -16,20 +48,12 @@ $routes->get('/aihekuvaus', function() {
     HelloWorldController::aihekuvaus();
 });
 
-$routes->get('/aihelistaus', function() {
-    AiheController::index();
-});
-
 $routes->get('/yaihelistaus', function() {
     HelloWorldController::yaihelistaus();
 });
 
 $routes->get('/viestilistaus', function() {
     HelloWorldController::viestilistaus();
-});
-
-$routes->get('/keskustelulistaus', function() {
-    KeskusteluController::index();
 });
 
 $routes->get('/ykeskustelulistaus', function() {
@@ -48,10 +72,6 @@ $routes->get('/ykayttajalistaus', function() {
     HelloWorldController::ykayttajalistaus();
 });
 
-$routes->get('/kayttajalistaus', function() {
-    KayttajaController::index();
-});
-
 $routes->get('/kayttajaesittely', function() {
     HelloWorldController::kayttajaesittely();
 });
@@ -59,3 +79,8 @@ $routes->get('/kayttajaesittely', function() {
 $routes->get('/kayttajamuokkaus', function() {
     HelloWorldController::kayttajamuokkaus();
 });
+
+
+
+
+

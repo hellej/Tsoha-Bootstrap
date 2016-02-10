@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<h1>Rerkisteröidy foorumille</h1>
+
+
+<form method="post" action="{{base_path}}/kayttaja">
+    
+    <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" name="nimi" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Käyttäjätunnus</label>
+        <input type="text" name="ktunnus" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Sähköposti</label>
+        <input type="text" name="sposti" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Salasana</label>
+        <input type="text" name="salasana" class="form-control">
+    </div>
+
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <textarea name="kuvaus" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Tallenna</button>
+    </div>
+
+</form>
+
+{% endblock %}

@@ -6,11 +6,14 @@ Yleisiä linkkejä:
 * [Linkki sovelluksen etusivulle] (http://joohelle.users.cs.helsinki.fi/helle/foorumi)
 
 
-## HTML -pohjat tietokantojen tiedoilla
+## HTML -sivut tietokantojen tiedoilla
 
 * [Linkki käyttäjälistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus)
+* [Linkki dynaamiseen käyttäjäesittelyyn] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/1)
+* [Linkki post lomake-rekisteröitymiseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/uusi)
 * [Linkki keskustelulistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus)
 * [Linkki aihelistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus)
+
 
 ## HTML -pohjaluonnokset
 

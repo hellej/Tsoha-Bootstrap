@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+<h1>{{kayttaja.nimi}}</h1>
+
+<p>
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+</p>
+
+
+<ul>
+    <li><strong>Käyttäjätunnus: </strong> {{kayttaja.ktunnus}}</li>
+    <li><strong>Sähköposti: </strong> {{kayttaja.sposti}}</li>
+    <li><strong>Ylläpitäjä: </strong> {{kayttaja.yllapitaja}}</li>
+    <li><strong>Viestejä: </strong> <label class="label label-danger">kesken</label></li>
+    <li><strong>Kuvaus: </strong> <label class="label label-danger">kesken</label></li>
+    <li><strong>Ryhmät: </strong> <label class="label label-danger">kesken</label></li>
+</ul>
+
+
+
+{% endblock %}

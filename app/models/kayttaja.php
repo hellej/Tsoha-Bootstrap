@@ -8,7 +8,7 @@
 
 class Kayttaja extends BaseModel {
 
-    public $id, $ktunnus, $nimi, $sposti, $salasana, $yllapitaja;
+    public $id, $ktunnus, $nimi, $sposti, $salasana, $yllapitaja, $kuvaus;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -28,7 +28,8 @@ class Kayttaja extends BaseModel {
                 'nimi' => $row['nimi'],
                 'sposti' => $row['sposti'],
                 'salasana' => $row['salasana'],
-                'yllapitaja' => $row['yllapitaja']));
+                'yllapitaja' => $row['yllapitaja'],
+                'kuvaus' => $row['kuvaus']));
         }
 
         return $kayttajat;
@@ -36,7 +37,7 @@ class Kayttaja extends BaseModel {
 
     public static function find($id) {
 
-        $query = DB::connection()->prepare('SELECT * FROM KAYTTAJA WHERE id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
@@ -47,11 +48,29 @@ class Kayttaja extends BaseModel {
                 'nimi' => $row['nimi'],
                 'sposti' => $row['sposti'],
                 'salasana' => $row['salasana'],
-                'yllapitaja' => $row['yllapitaja']));
+                'yllapitaja' => $row['yllapitaja'],
+                'kuvaus' => $row['kuvaus']));
 
             return $kayttaja;
         }
         return null;
     }
 
+    public function save(){
+        
+        $query = DB::connection()->prepare('INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, kuvaus) VALUES (:ktunnus, :nimi, :sposti, :salasana, :kuvaus) RETURNING id');
+        
+        $query->execute(array('ktunnus' => $this->ktunnus, 'nimi' => $this->nimi,
+            'sposti' => $this->sposti, 'salasana' => $this->salasana,
+            'kuvaus' => $this->kuvaus
+            ));
+
+        
+        $row = $query->fetch();
+        
+        $this->id = $row['id'];
+        
+    }
+    
+    
 }

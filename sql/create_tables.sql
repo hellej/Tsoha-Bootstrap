@@ -14,7 +14,8 @@ ktunnus varchar(15) NOT NULL,
 nimi varchar(30) NOT NULL,
 sposti varchar(30),
 salasana varchar(15) NOT NULL,
-yllapitaja boolean DEFAULT FALSE
+yllapitaja boolean DEFAULT FALSE,
+kuvaus varchar(200)
 );
 
 CREATE TABLE Ryhmakayttaja(

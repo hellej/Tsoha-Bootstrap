@@ -1,8 +1,8 @@
 INSERT INTO Ryhma (nimi, kuvaus, luontiaika)
 VALUES('aktiivit', 'semmoset jotka tekee', NOW());
 
-INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, yllapitaja)
-VALUES('hellej', 'Joose Helle', 'helle@helsinki.fi', 'asdfj', TRUE);
+INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, yllapitaja, kuvaus)
+VALUES('hellej', 'Joose Helle', 'helle@helsinki.fi', 'asdfj', TRUE, 'testijamppa');
 
 INSERT INTO Ryhmakayttaja (ryhma_id, kayttaja_id)
 VALUES(1,1);
