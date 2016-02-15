@@ -37,7 +37,7 @@ class Aihe extends BaseModel {
     public static function find($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Aihe WHERE id = :id LIMIT 1');
-        $query->execute();
+        $query->execute(array('id'=>$id));
         $row = $query->fetch();
 
         if ($row) {
@@ -52,6 +52,13 @@ class Aihe extends BaseModel {
         }
 
         return null;
+    }
+
+    public function update() {
+
+        $query = DB::connection()->prepare('UPDATE Aihe SET nimi = :nimi, luontiaika = :luontiaika, luoja_id = :luoja_id WHERE id = :id');
+        $query->execute(array('id' => $this->id, 'nimi' => $this->nimi, 'luontiaika' => $this->luontiaika, 'luoja_id' => $this->luoja_id));
+  
     }
 
 }

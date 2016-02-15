@@ -8,6 +8,41 @@
 
 class KayttajaController extends BaseController {
 
+    public static function login() {
+
+        View::make('kayttaja/login.html');
+        
+    }
+    
+    public static function logout() {
+        session_unset();
+        
+        Redirect::to('/login', array('message' => 'Uloskirjautuminen onnistui!'));
+        
+    }
+
+    public static function handle_login() {
+
+         $params = $_POST;
+        
+        Kint::dump($params);
+
+        $kayttaja = Kayttaja::authenticate($params['ktunnus'], $params['salasana']);
+
+        
+        
+        if (!$kayttaja) {
+            View::make('kayttaja/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana',
+            'ktunnus' => $params['ktunnus']));
+        } else {
+            $_SESSION['kayttaja'] = $kayttaja->id;
+            Redirect::to('/foorumi', array('message' => 'Tervetuloa takaisin ' . $kayttaja->ktunnus . '!'));
+        }
+//        
+        
+        
+    }
+
     public static function index() {
 
         $kayttajat = Kayttaja::all();
@@ -18,24 +53,78 @@ class KayttajaController extends BaseController {
     public static function show($id) {
 
         $kayttaja = Kayttaja::find($id);
-
         View::make('kayttaja/esittely.html', array('kayttaja' => $kayttaja));
+    }
+
+    public static function edit($id) {
+
+        $kayttaja = Kayttaja::find($id);
+
+        View::make('kayttaja/edit.html', array('kayttaja' => $kayttaja));
+    }
+
+    public static function destroy($id) {
+
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $id);
+
+        $kayttaja = new Kayttaja($attributes);
+
+        $kayttaja->destroy();
+
+        Redirect::to('/kayttajalistaus', array('message' => 'Käyttäjä poistettu onnistuneesti'));
+    }
+
+    public static function update($id) {
+
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $id,
+            'ktunnus' => $params['ktunnus'],
+            'nimi' => $params['nimi'],
+            'sposti' => $params['sposti'],
+            'salasana' => $params['salasana'],
+            'yllapitaja' => $params['yllapitaja'],
+            'kuvaus' => $params['kuvaus']);
+
+        $kayttaja = new Kayttaja($attributes);
+
+        $errors = $kayttaja->errors();
+
+
+        if (count($errors) > 0) {
+            View::make('kayttaja/edit.html', array('errors' => $errors, 'kayttaja' => $attributes));
+        } else {
+            $kayttaja->update();
+            Redirect::to('/kayttajalistaus/' . $kayttaja->id, array('message' => 'Käyttäjäteidot muokattu onnistuneesti!'));
+        }
     }
 
     public static function store() {
 
         $params = $_POST;
 
-        $kayttaja = new Kayttaja(array(
+        $attributes = array(
             'ktunnus' => $params['ktunnus'],
             'nimi' => $params['nimi'],
             'sposti' => $params['sposti'],
             'salasana' => $params['salasana'],
-            'kuvaus' => $params['kuvaus']));
+            'yllapitaja' => $params['yllapitaja'],
+            'kuvaus' => $params['kuvaus']);
 
-        $kayttaja->save();
+        $kayttaja = new Kayttaja($attributes);
 
-        Redirect::to('/kayttajalistaus/' . $kayttaja->id, array('message' => 'Käyttäjätiedot tallennettu!'));
+        $errors = $kayttaja->errors();
+
+        if (count($errors) == 0) {
+            $kayttaja->save();
+            Redirect::to('/kayttajalistaus/' . $kayttaja->id, array('message' => 'Käyttäjätiedot tallennettu!'));
+        } else {
+            View::make('kayttaja/uusi.html', array('errors' => $errors, 'attributes' => $attributes));
+        }
     }
 
     public static function create() {

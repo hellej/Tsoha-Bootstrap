@@ -1,6 +1,17 @@
 <?php
 
 
+$routes->get('/kayttajalistaus/:id/edit', function($id) {
+    KayttajaController::edit($id);
+});
+
+$routes->post('/kayttajalistaus/:id/edit', function($id) {
+    KayttajaController::update($id);
+});
+
+$routes->post('/kayttajalistaus/:id/destroy', function($id) {
+    KayttajaController::destroy($id);
+});
 
 $routes->get('/kayttajalistaus', function() {
     KayttajaController::index();
@@ -14,15 +25,26 @@ $routes->get('/kayttajalistaus/uusi', function() {
     KayttajaController::create();
 });
 
+
 $routes->get('/kayttajalistaus/:id', function($id) {
     KayttajaController::show($id);
 });
 
 
-
+$routes->get('/aihelistaus/:id', function($id) {
+    AiheController::show($id);
+});
 $routes->get('/aihelistaus', function() {
     AiheController::index();
 });
+$routes->get('/aihelistaus/:id/edit', function($id) {
+    AiheController::edit($id);
+});
+$routes->post('/aihelistaus/:id/edit', function($id) {
+    AiheController::update($id);
+});
+
+
 
 
 
@@ -32,9 +54,25 @@ $routes->get('/keskustelulistaus', function() {
 
 
 
-$routes->get('/', function() {
-    HelloWorldController::etusivu();
+$routes->get('/vastinelistaus/:id', function($id) {
+    VastineController::index($id);
+    
 });
+
+
+
+
+$routes->get('/logout', function() {
+    KayttajaController::logout();
+});
+$routes->get('/login', function() {
+    KayttajaController::login();
+});
+$routes->post('/login', function() {
+    KayttajaController::handle_login();
+});
+
+
 
 $routes->get('/foorumi', function() {
     HelloWorldController::foorumietusivu();

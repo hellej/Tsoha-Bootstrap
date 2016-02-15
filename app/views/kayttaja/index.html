@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Maofoorumin nykyiset käyttäjät:</h1>
+{% import "macros/forms.html" as forms %}
+
+{% if message %}
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
+
+<h1>Foorumin nykyiset käyttäjät:</h1>
 
 <p>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/yetusivu" class="btn btn-primary">Palaa ylläpidon etusivulle</a>
@@ -22,15 +34,16 @@
         {% for kayttaja in kayttajat %}
 
         <tr>
-            <td><a href="#">{{kayttaja.ktunnus}}</td>
-            <td><a href="#" >{{kayttaja.nimi}}</td>
+            <td><a href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}">{{kayttaja.ktunnus}}</td>
+            <td>{{kayttaja.nimi}}</td>
             <td>{{kayttaja.sposti}}</td>
             <td>{{kayttaja.salasana}}</td>
-            <td><a class="btn btn-default btn-sm" href="http://joohelle.users.cs.helsinki.fi/helle/kayttajamuokkaus">muokkaa</a></td>
-            <td><a class="btn btn-danger btn-sm" href="#">poista</a></td>
+            <td><a class="btn btn-default btn-sm" href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/edit">muokkaa</a></td>
+            <td>{{forms.destroy_button("#{base_path}/kayttajalistaus/#{kayttaja.id}/destroy")}}</td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+
 
 {% endblock %}

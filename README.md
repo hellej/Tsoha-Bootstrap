@@ -5,6 +5,15 @@ Yleisiä linkkejä:
 * [Linkki dokumentaatiooni](https://github.com/hellej/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 * [Linkki sovelluksen etusivulle] (http://joohelle.users.cs.helsinki.fi/helle/foorumi)
 
+Kirjautuminen toimii, ja yläpalkin kolme painiketta, joista “kirjaudu sisään” painike muuttuu “omat tiedot” painikkeeksi kun käyttäjä on sisällä.
+
+## Viikon neljä HTML -sivut
+käyttäjä: helle, salasana: aurinko
+
+* [Linkki kirjautumissivulle, ] (http://joohelle.users.cs.helsinki.fi/helle/login)
+* [Linkki käyttäjätietojen  muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/1/edit)
+* [Linkki käyttäjätietojen  muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/1/edit)
+
 
 ## HTML -sivut tietokantojen tiedoilla
 

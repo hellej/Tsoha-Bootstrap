@@ -1,7 +1,16 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Maofoorum</h1> 
+{% if message %}
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
+<h1>Keskustelufoorumi</h1> 
 
 <p>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu"                                             
@@ -40,10 +49,8 @@
     <thead>
         <tr>
             <th>Aika</th>
-            <th>Käyttäjä</th>
+            <th>Kirjoittaja</th>
             <th>Keskustelu</th>      
-            <th>Lukematta</th>
-            <th>Lukeneet</th>
         </tr>
     </thead>
 
@@ -53,8 +60,7 @@
             <td><a href="#">1.1.2016 15:03 </a></td>
             <td><a href="http://joohelle.users.cs.helsinki.fi/helle/kayttajaesittely">Maija Mantsalainen</a></td>
             <td><a href="#">Kahvinkeittimen hankinta</a></td>
-            <td> Kyllä </td>
-            <td>4/10</td>
+
         </tr>
     </tbody>
 

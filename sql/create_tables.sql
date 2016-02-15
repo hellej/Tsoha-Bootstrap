@@ -14,7 +14,7 @@ ktunnus varchar(15) NOT NULL,
 nimi varchar(30) NOT NULL,
 sposti varchar(30),
 salasana varchar(15) NOT NULL,
-yllapitaja boolean DEFAULT FALSE,
+yllapitaja varchar(3),
 kuvaus varchar(200)
 );
 
@@ -24,10 +24,6 @@ ryhma_id INTEGER REFERENCES Ryhma(id),
 kayttaja_id INTEGER REFERENCES Kayttaja(id)
 );
 
-CREATE TABLE Kirjoittaja(
-id SERIAL PRIMARY KEY,
-kayttaja_id INTEGER REFERENCES Kayttaja(id)
-);
 
 CREATE TABLE Aihe(
 id SERIAL PRIMARY KEY,
@@ -39,8 +35,9 @@ luontiaika date
 CREATE TABLE Keskustelu(
 id SERIAL PRIMARY KEY,
 otsikko varchar(40) NOT NULL,
-aika timestamp,
-kirjoittaja_id INTEGER REFERENCES Kirjoittaja(id)
+sisalto varchar(400) NOT NULL,
+aika date,
+kirjoittaja_id INTEGER REFERENCES Kayttaja(id)
 );
 
 CREATE TABLE Keskusteluaihe(
@@ -60,5 +57,5 @@ id SERIAL PRIMARY KEY,
 sisalto varchar(400) NOT NULL,
 aika timestamp,
 keskustelu_id INTEGER REFERENCES Keskustelu(id),
-kirjoittaja_id INTEGER REFERENCES Kirjoittaja(id)
+kirjoittaja_id INTEGER REFERENCES Kayttaja(id)
 );

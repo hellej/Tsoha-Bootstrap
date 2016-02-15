@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if message %}
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
+<p>
+    <a href="{{base_path}}/aihelistaus/{{aihe.id}}/edit" class="btn btn-default">Muokkaa</a>
+    <a href="{{base_path}}/aihelistaus" class="btn btn-default">Palaa aihelistaan</a>
+</p>
+
+<h1>{{aihe.nimi}}</h1>
+
+<ul>
+
+    <li><strong>ID: </strong> {{aihe.id}}</li>
+    <li><strong>Luontiaika: </strong> {{aihe.luontiaika}}</li>
+    <li><strong>Viestejä: </strong> TBA</li>
+    <li><strong>Luoja: </strong> {{aihe.luoja_id}}</li>
+
+
+</ul>
+
+
+
+{% endblock %}

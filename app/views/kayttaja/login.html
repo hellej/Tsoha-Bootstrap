@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+{% if message %}
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
+<h1>Tervetuloa keskustelufoorumille!</h1>
+
+<br>
+
+
+{% if error %}
+<div class="alert alert-danger">
+    <ul>
+        <li>{{error}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
+
+<form method="post" action="{{base.path}}/helle/login">
+      <div class="form-group">
+        <label>Käyttäjätunnus</label>
+        <input type="text" name="ktunnus" class="form-control" value="{{ktunnus}}">
+    </div>
+
+    <div class="form-group">
+        <label>Salasana</label>
+        <input type="password" name="salasana" class="form-control">
+    </div>
+    
+    {{forms.submit_button("Kirjaudu sisään")}}
+    
+<!--    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Kirjaudu sisään</button>
+    </div>-->
+    
+</form>
+
+
+
+
+
+
+<br>
+<p>
+    <a class="btn btn-default btn-sm" href="{{base_path}}/kayttajalistaus/uusi">Rekisteröidy</a>
+</p>
+
+<br><br>
+
+
+{% endblock %}

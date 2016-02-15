@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% import "macros/forms.html" as forms %}
+{% if message %}
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
 <h1>Listaus aiheista</h1>
 
 <p>
@@ -13,21 +23,27 @@
             <th>Luoja</th>
             <th>Lisäyspäivä</th>
             <th>Viestejä</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
 
     <tbody>
 
         {% for aihe in aiheet %}
-        
-        
+
+
         <tr>
-            <td><a href="#">{{aihe.nimi}}</td>
+            <td>{{aihe.nimi}}</td>
             <td><a href="#">{{aihe.luoja_id}}</td>
             <td>{{aihe.luontiaika}}</td>
             <td>TBA</td>
+            <td><a class="btn btn-default btn-sm" href="{{base_path}}/aihelistaus/{{aihe.id}}/edit">muokkaa</a></td>
+            <td>{{forms.destroy_button("#{base_path}/aihelistaus/#{aihe.id}/destroy")}}</td>
         </tr>
+
         {% endfor %}
+
     </tbody>
 </table>
 

@@ -12,11 +12,19 @@ class HelloWorldController extends BaseController {
     }
 
     public static function sandbox() {
-        $kayttajat = Kayttaja::all();
-        $keskustelut = Keskustelu::all();
-        $maija = Kayttaja::find(1);
-        Kint::dump($keskustelut);
-        Kint::dump($maija);
+//        $kayttajat = Kayttaja::all();
+//        $keskustelut = Keskustelu::all();
+//        $maija = Kayttaja::find(1);
+//        Kint::dump($keskustelut);
+//        Kint::dump($maija);
+
+        $keskustelu = Keskustelu::find(1);
+
+        Kint::dump($keskustelu);
+
+
+        $aloittaja = Keskustelu::getAloittaja(1);
+        Kint::dump($aloittaja);
     }
 
     public static function aihekuvaus() {

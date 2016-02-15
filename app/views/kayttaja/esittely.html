@@ -1,24 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% if message %}
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
 
 
 <h1>{{kayttaja.nimi}}</h1>
 
 <p>
-    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+    <a href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/edit" class="btn btn-default">Muokkaa</a>
+    <a href="{{base_path}}/kayttajalistaus" class="btn btn-default">Palaa käyttäjälistaan</a>
 </p>
 
 
 <ul>
+    
+    <li><strong>ID: </strong> {{kayttaja.id}}</li>
     <li><strong>Käyttäjätunnus: </strong> {{kayttaja.ktunnus}}</li>
     <li><strong>Sähköposti: </strong> {{kayttaja.sposti}}</li>
     <li><strong>Ylläpitäjä: </strong> {{kayttaja.yllapitaja}}</li>
     <li><strong>Viestejä: </strong> <label class="label label-danger">kesken</label></li>
-    <li><strong>Kuvaus: </strong> <label class="label label-danger">kesken</label></li>
     <li><strong>Ryhmät: </strong> <label class="label label-danger">kesken</label></li>
+
 </ul>
 
+<p> {{kayttaja.kuvaus}} </p>
 
 
 {% endblock %}
