@@ -5,23 +5,31 @@ Yleisiä linkkejä:
 * [Linkki dokumentaatiooni](https://github.com/hellej/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 * [Linkki sovelluksen etusivulle] (http://joohelle.users.cs.helsinki.fi/helle/foorumi)
 
-Kirjautuminen toimii, ja yläpalkin kolme painiketta, joista “kirjaudu sisään” painike muuttuu “omat tiedot” painikkeeksi kun käyttäjä on sisällä.
+Kirjautuminen toimii, ja 
 
 ## Viikon neljä HTML -sivut
 käyttäjä: helle, salasana: aurinko
 
-* [Linkki kirjautumissivulle, ] (http://joohelle.users.cs.helsinki.fi/helle/login)
+* [Linkki kirjautumissivulle] (http://joohelle.users.cs.helsinki.fi/helle/login)
+ Yläpalkin kolme painiketta toimivat; “kirjaudu sisään” painike muuttuu “omat tiedot” painikkeeksi kun käyttäjä on sisällä.
+
 * [Linkki käyttäjätietojen  muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/1/edit)
-* [Linkki käyttäjätietojen  muokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/1/edit)
+Muokkaussivun painikkeet toimivat, mutta poista nappi aiheuttaa virheilmoitusken käyttäjälle, jonka id:hen on viitattu toisessa taulussa.
+
+* [Linkki käyttäjäesittelyyn] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/1)
+* [Linkki rekisteröitymissivulle] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/uusi)
+* [Linkki aihelistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus)
+* [Linkki aihemuokkaukseen] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus/1/edit)
+* [Linkki keskustelulistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus)
+* [Linkki vastineketjuun] (http://joohelle.users.cs.helsinki.fi/helle/vastinelistaus/1)
 
 
 ## HTML -sivut tietokantojen tiedoilla
 
 * [Linkki käyttäjälistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus)
-* [Linkki dynaamiseen käyttäjäesittelyyn] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/1)
 * [Linkki post lomake-rekisteröitymiseen] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/uusi)
 * [Linkki keskustelulistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus)
-* [Linkki aihelistaukseen] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus)
+
 
 
 ## HTML -pohjaluonnokset
