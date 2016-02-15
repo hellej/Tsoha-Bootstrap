@@ -5,7 +5,6 @@ Yleisiä linkkejä:
 * [Linkki dokumentaatiooni](https://github.com/hellej/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 * [Linkki sovelluksen etusivulle] (http://joohelle.users.cs.helsinki.fi/helle/foorumi)
 
-Kirjautuminen toimii, ja 
 
 ## Viikon neljä HTML -sivut
 käyttäjä: helle, salasana: aurinko

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% import "macros/forms.html" as forms %}
+{% if message %}
+
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+<h1>Listaus ryhmistä</h1>
+
+<p>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" class="btn btn-primary">Palaa etusivulle</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/ryhmalistaus/uusi" class="btn btn-primary">Luo uusi ryhmä</a>
+
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Luoja
+            <th>Luontiaika</th>
+            <th>Kuvaus</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for ryhma in ryhmat %}
+
+
+        <tr>
+            <td>{{ryhma.nimi}}</td>
+            <td><a href="#">{{ryhma.luoja_id}}</td>
+            <td>{{ryhma.luontiaika}}</td>
+            <td>{{ryhma.kuvaus}}</td>
+            <td>{{forms.destroy_button("#{base_path}/ryhmalistaus/#{ryhma.id}/destroy")}}</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% endblock %}

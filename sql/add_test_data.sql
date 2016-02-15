@@ -1,5 +1,7 @@
 INSERT INTO Ryhma (nimi, kuvaus, luontiaika)
 VALUES('aktiivit', 'semmoset jotka tekee', NOW());
+INSERT INTO Ryhma (nimi, kuvaus, luontiaika)
+VALUES('hallitus', 'semmoset jotka päättää', NOW());
 
 INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, yllapitaja, kuvaus)
 VALUES('hellej', 'Joose Helle', 'helle@helsinki.fi', 'asdfj', 'joo', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius d');

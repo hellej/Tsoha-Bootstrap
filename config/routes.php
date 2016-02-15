@@ -1,31 +1,23 @@
 <?php
 
-
 $routes->get('/kayttajalistaus/:id/edit', function($id) {
     KayttajaController::edit($id);
 });
-
 $routes->post('/kayttajalistaus/:id/edit', function($id) {
     KayttajaController::update($id);
 });
-
 $routes->post('/kayttajalistaus/:id/destroy', function($id) {
     KayttajaController::destroy($id);
 });
-
 $routes->get('/kayttajalistaus', function() {
     KayttajaController::index();
 });
-
 $routes->post('/kayttaja', function() {
     KayttajaController::store();
 });
-
 $routes->get('/kayttajalistaus/uusi', function() {
     KayttajaController::create();
 });
-
-
 $routes->get('/kayttajalistaus/:id', function($id) {
     KayttajaController::show($id);
 });
@@ -45,6 +37,20 @@ $routes->post('/aihelistaus/:id/edit', function($id) {
 });
 
 
+$routes->get('/ryhmalistaus', function() {
+    RyhmaController::index();
+});
+$routes->post('/ryhmalistaus/:id/destroy', function($id) {
+    RyhmaController::destroy($id);
+});
+$routes->get('/ryhmalistaus/uusi', function() {
+    RyhmaController::create();
+});
+$routes->post('/ryhma', function() {
+    RyhmaController::store();
+});
+
+
 
 
 
@@ -56,7 +62,6 @@ $routes->get('/keskustelulistaus', function() {
 
 $routes->get('/vastinelistaus/:id', function($id) {
     VastineController::index($id);
-    
 });
 
 
@@ -106,17 +111,11 @@ $routes->get('/yetusivu', function() {
     HelloWorldController::yetusivu();
 });
 
-$routes->get('/ykayttajalistaus', function() {
-    HelloWorldController::ykayttajalistaus();
-});
 
-$routes->get('/kayttajaesittely', function() {
-    HelloWorldController::kayttajaesittely();
-});
 
-$routes->get('/kayttajamuokkaus', function() {
-    HelloWorldController::kayttajamuokkaus();
-});
+
+
+
 
 
 
