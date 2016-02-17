@@ -8,7 +8,7 @@
 
 class Keskustelu extends BaseModel {
 
-    public $id, $otsikko, $sisalto, $aika, $kirjoittaja_id, $kirjoittaja_ktunnus;
+    public $id, $otsikko, $sisalto, $aika, $luoja_id, $luoja_ktunnus;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
@@ -16,7 +16,7 @@ class Keskustelu extends BaseModel {
 
     public static function all() {
 
-        $query = DB::connection()->prepare('SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.kirjoittaja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.kirjoittaja_id = Kayttaja.id');
+        $query = DB::connection()->prepare('SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.luoja_id = Kayttaja.id');
         $query->execute();
         $rows = $query->fetchAll();
         $keskustelut = array();
@@ -27,18 +27,26 @@ class Keskustelu extends BaseModel {
                 'otsikko' => $row['otsikko'],
                 'sisalto' => $row['sisalto'],
                 'aika' => $row['aika'],
-                'kirjoittaja_id' => $row['kirjoittaja_id'],
-                'kirjoittaja_ktunnus' => $row['ktunnus']
+                'luoja_id' => $row['luoja_id'],
+                'luoja_ktunnus' => $row['ktunnus']
             ));
         }
+
         return $keskustelut;
     }
 
-    
-    
+    public static function save() {
+
+        $query = DB::connection()->prepare('INSERT INTO Keskustelu (otsikko, sisalto, aika, luoja_id, luoja_ktunnus)  Values(:otsikko, :sisalto, NOW(), :luoja_id, luoja_ktunnus) RETURNING id');
+        $query->execute(array('otsikko' => $this->otsikko, 'sisalto' => $this->sisalto, 'luoja_id' => $this->luoja_id, 'luoja_ktunnus' => $this->luoja_ktunnus));
+
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+
     public static function find($id) {
 
-        $query = DB::connection()->prepare('SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.kirjoittaja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.kirjoittaja_id = Kayttaja.id AND Keskustelu.id = :id LIMIT 1');
+        $query = DB::connection()->prepare('SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.luoja_id = Kayttaja.id AND Keskustelu.id = :id LIMIT 1');
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
@@ -48,8 +56,8 @@ class Keskustelu extends BaseModel {
                 'otsikko' => $row['otsikko'],
                 'sisalto' => $row['sisalto'],
                 'aika' => $row['aika'],
-                'kirjoittaja_id' => $row['kirjoittaja_id'],
-                'kirjoittaja_ktunnus' => $row['ktunnus']
+                'luoja_id' => $row['luoja_id'],
+                'luoja_ktunnus' => $row['ktunnus']
             ));
 
             return $keskustelu;
@@ -57,21 +65,20 @@ class Keskustelu extends BaseModel {
 
         return null;
     }
-    
+
     public static function getKirjoittaja($id) {
-        
+
         $keskustelu = self::find($id);
-        
+
         $kid = $keskustelu->id;
-        
+
         $query = DB::connection()->prepare('SELECT nimi FROM Kayttaja WHERE id = :id LIMIT 1');
         $query->execute(array('id' => $kid));
         $row = $query->fetch();
-        
+
         $knimi = $row['nimi'];
-            
+
         return $knimi;
-        
     }
 
 }

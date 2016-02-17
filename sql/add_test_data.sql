@@ -14,11 +14,13 @@ VALUES('matti', 'Matti Mannonen', 'matti@helsinki.fi', 'aurinko', 'joo', 'Lorem 
 
 INSERT INTO Aihe (nimi, luontiaika) VALUES('varasto', NOW());
 
-INSERT INTO Keskustelu(otsikko, sisalto, aika, kirjoittaja_id) 
+INSERT INTO Keskustelu(otsikko, sisalto, aika, luoja_id) 
 VALUES('keskustelu yksi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti.', NOW(), 1);
-
-INSERT INTO Keskustelu(otsikko, sisalto, aika, kirjoittaja_id) 
+INSERT INTO Keskustelu(otsikko, sisalto, aika, luoja_id) 
 VALUES('keskustelu kaksi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti.', NOW(), 1);
+INSERT INTO Keskustelu(otsikko, sisalto, aika, luoja_id) 
+VALUES('keskustelu kolme', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti.', NOW(), 2);
+
 
 INSERT INTO Keskusteluaihe(aihe_id, keskustelu_id)
 VALUES(1,1);
@@ -27,9 +29,9 @@ VALUES(1,1);
 
 INSERT INTO Vastine(sisalto, aika, keskustelu_id, kirjoittaja_id)
 VALUES('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.', NOW(), 1, 1);
-
 INSERT INTO Vastine(sisalto, aika, keskustelu_id, kirjoittaja_id)
-VALUES('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.', NOW(), 1, 2);
-
+VALUES('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu.', NOW(), 3, 2);
 INSERT INTO Vastine(sisalto, aika, keskustelu_id, kirjoittaja_id)
 VALUES('Lorem ipsum dolor sit elit. Sed posuere interdum sem. Quisque ligula eru.', NOW(), 1, 3);
+INSERT INTO Vastine(sisalto, aika, keskustelu_id, kirjoittaja_id)
+VALUES('asdfasdffasdfsadf i sem. Quisque ligula eru.', NOW(), 3, 3);

@@ -40,6 +40,7 @@ class AiheController extends BaseController {
 
             $userid = $_SESSION['user'];
 
+
             $attributes = array(
                 'nimi' => $params['nimi'],
                 'luoja_id' => $userid
@@ -58,9 +59,9 @@ class AiheController extends BaseController {
             View::make('aihe/uusi.html', array('message' => 'Muistithan kirjautua sisään?'));
         }
     }
-    
+
     public static function destroy($id) {
-        
+
         $aihe = Aihe::find($id);
         $aihe->destroy();
         Redirect::to('/aihelistaus', array('message' => 'Aihe poistettu!'));

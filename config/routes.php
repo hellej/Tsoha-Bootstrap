@@ -82,6 +82,7 @@ $routes->post('/keskustelu', function() {
 
 
 
+
 $routes->get('/vastinelistaus/:id', function($id) {
     VastineController::index($id);
 });

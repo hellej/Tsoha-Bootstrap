@@ -37,7 +37,7 @@ id SERIAL PRIMARY KEY,
 otsikko varchar(40) NOT NULL,
 sisalto varchar(400) NOT NULL,
 aika date,
-kirjoittaja_id INTEGER REFERENCES Kayttaja(id)
+luoja_id INTEGER REFERENCES Kayttaja(id)
 );
 
 CREATE TABLE Keskusteluaihe(
