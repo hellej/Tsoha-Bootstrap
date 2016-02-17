@@ -13,7 +13,7 @@
 <h1>Keskustelufoorumi</h1> 
 
 <p>
-    <a href="http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu"                                             
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/uusi"                                             
        class="btn btn-default">Uusi keskustelu</a>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus"                           
        class="btn btn-default">Keskustelut</a>
@@ -21,6 +21,8 @@
        class="btn btn-default">Aiheet</a>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/ryhmalistaus"                                  
        class="btn btn-default">Ryhmät</a>
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus"                                  
+       class="btn btn-default">Käyttäjät</a>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/yetusivu""                                             
        class="btn btn-default">Ylläpitäjän työkalut</a>
 </p>
@@ -32,11 +34,11 @@
 
     Kirjoittajan perusteella: <input type="text" name="hnimi" </input>
     Aiheen perusteella: <input type="text" name"haihe" </input>
-<!--    <br> <br>
-    Aikaväliltä (YYYYMMDD – YYYYMMDD): <br> <input type="text"</input> <input type="text"</input>
-    <br> <br>   -->
- 
-<a href="http://joohelle.users.cs.helsinki.fi/helle/viestilistaus"   
+    <!--    <br> <br>
+        Aikaväliltä (YYYYMMDD – YYYYMMDD): <br> <input type="text"</input> <input type="text"</input>
+        <br> <br>   -->
+
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/viestilistaus"   
        class="btn btn-primary">haku</a>
 </form>
 <br>
@@ -44,6 +46,7 @@
 
 
 <h3>Viimeisimmät viestit</h3>
+
 
 
 <table class="table table-striped table-bordered">
@@ -55,15 +58,19 @@
         </tr>
     </thead>
 
+    {% for vastine in vastineet %}
+
     <tbody>
         <!-- Listataan viestit tähän, otsikko toimii linkkinä keskusteluun-->
         <tr>
-            <td><a href="#">1.1.2016 15:03 </a></td>
-            <td><a href="http://joohelle.users.cs.helsinki.fi/helle/kayttajaesittely">Maija Mantsalainen</a></td>
-            <td><a href="#">Kahvinkeittimen hankinta</a></td>
+            <td><a href="#">{{vastine.aika}}</a></td>
+            <td><a href="#">{{vastine.kirjoittaja_ktunnus}}</a></td>
+            <td><a href="#">{{vastine.keskustelu_otsikko}}</a></td>
 
         </tr>
     </tbody>
+
+    {% endfor %}
 
 </table>
 {% endblock %}

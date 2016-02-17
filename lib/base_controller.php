@@ -4,8 +4,8 @@ class BaseController {
 
     public static function get_user_logged_in() {
         // Toteuta kirjautuneen käyttäjän haku tähän
-        if (isset($_SESSION['kayttaja'])) {
-            $kayttaja_id = $_SESSION['kayttaja'];
+        if (isset($_SESSION['user'])) {
+            $kayttaja_id = $_SESSION['user'];
 
             $kayttaja = Kayttaja::find($kayttaja_id);
             return $kayttaja;

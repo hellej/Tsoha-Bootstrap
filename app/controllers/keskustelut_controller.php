@@ -14,5 +14,17 @@ class KeskusteluController extends BaseController {
         // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
         View::make('keskustelu/index.html', array('keskustelut' => $keskustelut));
     }
+    
+    public static function create() {
+        
+        
+        View::make('keskustelu/uusi.html');
+    }
+    
+    public static function store() {
+        
+        View::make('keskustelu/index.html');
+        
+    }
 
 }

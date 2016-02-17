@@ -34,10 +34,24 @@ class Aihe extends BaseModel {
         return $aiheet;
     }
 
+    public function save() {
+
+        $query = DB::connection()->prepare('INSERT INTO Aihe (nimi, luontiaika, luoja_id) Values (:nimi, NOW(), :luoja_id) RETURNING id');
+        $query->execute(array('nimi' => $this->nimi, 'luoja_id' => $this->luoja_id));
+
+        $row = $query->fetch();
+        $this->id = $row['id'];
+    }
+
+    public function destroy() {
+        $query = DB::connection()->prepare('DELETE FROM Aihe WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }
+
     public static function find($id) {
 
         $query = DB::connection()->prepare('SELECT * FROM Aihe WHERE id = :id LIMIT 1');
-        $query->execute(array('id'=>$id));
+        $query->execute(array('id' => $id));
         $row = $query->fetch();
 
         if ($row) {
@@ -48,6 +62,7 @@ class Aihe extends BaseModel {
                 'luoja_id' => $row['luoja_id'],
                 'luontiaika' => $row['luontiaika']
             ));
+
             return $aihe;
         }
 
@@ -58,7 +73,6 @@ class Aihe extends BaseModel {
 
         $query = DB::connection()->prepare('UPDATE Aihe SET nimi = :nimi, luontiaika = :luontiaika, luoja_id = :luoja_id WHERE id = :id');
         $query->execute(array('id' => $this->id, 'nimi' => $this->nimi, 'luontiaika' => $this->luontiaika, 'luoja_id' => $this->luoja_id));
-  
     }
 
 }

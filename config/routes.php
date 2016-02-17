@@ -1,5 +1,12 @@
 <?php
 
+
+$routes->get('/foorumi', function() {
+    EtusivuContoller::index();
+});
+
+
+
 $routes->get('/kayttajalistaus/:id/edit', function($id) {
     KayttajaController::edit($id);
 });
@@ -23,6 +30,12 @@ $routes->get('/kayttajalistaus/:id', function($id) {
 });
 
 
+$routes->post('/aihe', function() {
+    AiheController::store();
+});
+$routes->get('/aihelistaus/uusi', function() {
+    AiheController::create();
+});
 $routes->get('/aihelistaus/:id', function($id) {
     AiheController::show($id);
 });
@@ -34,6 +47,9 @@ $routes->get('/aihelistaus/:id/edit', function($id) {
 });
 $routes->post('/aihelistaus/:id/edit', function($id) {
     AiheController::update($id);
+});
+$routes->post('/aihelistaus/:id/destroy', function($id) {
+    AiheController::destroy($id);
 });
 
 
@@ -57,6 +73,12 @@ $routes->post('/ryhma', function() {
 $routes->get('/keskustelulistaus', function() {
     KeskusteluController::index();
 });
+$routes->get('/keskustelulistaus/uusi', function() {
+    KeskusteluController::create();
+});
+$routes->post('/keskustelu', function() {
+    KeskusteluController::store();
+});
 
 
 
@@ -79,9 +101,8 @@ $routes->post('/login', function() {
 
 
 
-$routes->get('/foorumi', function() {
-    HelloWorldController::foorumietusivu();
-});
+
+
 
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
@@ -103,9 +124,7 @@ $routes->get('/ykeskustelulistaus', function() {
     HelloWorldController::ykeskustelulistaus();
 });
 
-$routes->get('/uusikeskustelu', function() {
-    HelloWorldController::uusikeskustelu();
-});
+
 
 $routes->get('/yetusivu', function() {
     HelloWorldController::yetusivu();

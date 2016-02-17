@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2>Uusi keskustelu</h2>
+<br>
+
+
+<form id="form-group" action="{{base_path}}/keskustelu">
+  
+    <div class="input-group" >
+        <textarea placeholder="Otsikko" name="otsikko" class="form-control custom-control" rows="1" style="resize:none"></textarea> 
+        <textarea placeholder="Kirjoita keskustelun avaus tänne" name="sisalto" class="form-control custom-control" rows="6" style="resize:none"></textarea>     
+        <span class="input-group-addon">                                            
+            <button type="submit" name="post_keskustelu" class="btn btn-primary">
+                Tallenna
+            </button>
+        </span>
+    </div>
+    
+</form>
+
+
+
+<br><br>
+
+<a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus" 
+   class="btn btn-default">Selaa keskusteluita</a>
+
+<a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" class="btn btn-default">Palaa etusivulle</a>
+
+
+{% endblock %}

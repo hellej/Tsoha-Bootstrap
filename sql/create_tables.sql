@@ -5,7 +5,7 @@ CREATE TABLE Ryhma(
 id SERIAL PRIMARY KEY,
 nimi varchar(40) NOT NULL,
 kuvaus varchar(400) NOT NULL,
-luontiaika timestamp
+luontiaika date
 );
 
 CREATE TABLE Kayttaja(

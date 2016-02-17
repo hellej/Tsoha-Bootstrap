@@ -8,15 +8,16 @@
 
 class Vastine extends BaseModel {
 
-    public $id, $sisalto, $aika, $keskustelu_id, $kirjoittaja_id;
+    public $id, $sisalto, $aika, $keskustelu_id, $kirjoittaja_id, $kirjoittaja_ktunnus, $keskustelu_otsikko;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
     }
+    
 
     public static function all() {
 
-        $query = DB::connection()->prepare('SELECT * FROM Vastine');
+        $query = DB::connection()->prepare('SELECT Vastine.id, Vastine.sisalto, Vastine.aika, Vastine.keskustelu_id, Vastine.kirjoittaja_id, Kayttaja.ktunnus, Keskustelu.otsikko FROM Vastine, Kayttaja, Keskustelu WHERE Vastine.kirjoittaja_id = Kayttaja.id AND Vastine.keskustelu_id = Keskustelu.id');
         $query->execute();
         $rows = $query->fetchAll();
         $vastineet = array();
@@ -27,7 +28,9 @@ class Vastine extends BaseModel {
                 'sisalto' => $row['sisalto'],
                 'aika' => $row['aika'],
                 'keskustelu_id' => $row['keskustelu_id'],
-                'kirjoittaja_id' => $row['kirjoittaja_id']
+                'kirjoittaja_id' => $row['kirjoittaja_id'],
+                'kirjoittaja_ktunnus' => $row['ktunnus'],
+                'keskustelu_otsikko' => $row['otsikko']
             ));
         }
         return $vastineet;
@@ -35,7 +38,7 @@ class Vastine extends BaseModel {
 
     public static function allKeskustelu($id) {
 
-        $query = DB::connection()->prepare('SELECT * FROM Vastine WHERE keskustelu_id = :id');
+        $query = DB::connection()->prepare('SELECT Vastine.id, Vastine.sisalto, Vastine.aika, Vastine.keskustelu_id, Vastine.kirjoittaja_id, Kayttaja.ktunnus, Keskustelu.otsikko FROM Vastine, Kayttaja, Keskustelu WHERE Vastine.kirjoittaja_id = Kayttaja.id AND Vastine.keskustelu_id = Keskustelu.id AND keskustelu_id = :id');
         $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
         $vastineet = array();
@@ -46,7 +49,9 @@ class Vastine extends BaseModel {
                 'sisalto' => $row['sisalto'],
                 'aika' => $row['aika'],
                 'keskustelu_id' => $row['keskustelu_id'],
-                'kirjoittaja_id' => $row['kirjoittaja_id']
+                'kirjoittaja_id' => $row['kirjoittaja_id'],
+                'kirjoittaja_ktunnus' => $row['ktunnus'],
+                'keskustelu_otsikko' => $row['otsikko']
             ));
         }
         return $vastineet;

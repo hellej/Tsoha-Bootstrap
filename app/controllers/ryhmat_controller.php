@@ -16,28 +16,38 @@ class RyhmaController extends BaseController {
 
     public static function destroy($id) {
 
-        $params = $_POST;
-
-        $attributes = array(
-            'id' => $id);
-
-        $ryhma = new Ryhma($attributes);
+        $ryhma = Ryhma::find($id);
 
         $ryhma->destroy();
 
         Redirect::to('/ryhmalistaus', array('message' => 'Ryhmä poistettu onnistuneesti'));
     }
-    
-    
+
     public static function create() {
         View::make('ryhma/uusi.html');
     }
-    
+
     public static function store() {
         $params = $_POST;
-        
-        
-        
+
+
+        if (isset($_SESSION['user'])) {
+
+            $attributes = array(
+                'nimi' => $params['nimi'],
+                'kuvaus' => $params['kuvaus']
+            );
+
+            $ryhma = new Ryhma($attributes);
+
+            $ryhma->save();
+
+            Redirect::to('/ryhmalistaus', array('message' => 'Ryhmä tallennettu'));
+            
+        } else {
+
+            View::make('ryhma/uusi.html', array('message' => 'Muistithan kirjautua sisään?'));
+        }
     }
 
 }

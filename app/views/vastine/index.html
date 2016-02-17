@@ -7,7 +7,7 @@
 
 
 <h3><a href="#">{{keskustelu.otsikko}}</a>  <small>Käyttäjältä: </small> 
-    {{keskustelu.kirjoittaja_id}} <small> {{keskustelu.aika}} </small></h3>
+    {{keskustelu.kirjoittaja_ktunnus}} <small> {{keskustelu.aika}} </small></h3>
 
 
 {{keskustelu.sisalto}}
@@ -20,7 +20,8 @@
 
 {% for vastine in vastineet %}
 
-<h4><a href="#">Kirjoittajan Nimi</a>  <small> {{keskustelu.aika}} </small></h4>
+<h4><a href="#">{{vastine.kirjoittaja_ktunnus}}</a>  <small> {{vastine.aika}} </small></h4>
+
 <p>
     {{vastine.sisalto}} 
 </p>

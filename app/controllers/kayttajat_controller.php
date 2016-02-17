@@ -11,36 +11,32 @@ class KayttajaController extends BaseController {
     public static function login() {
 
         View::make('kayttaja/login.html');
-        
     }
-    
+
     public static function logout() {
         session_unset();
-        
+
         Redirect::to('/login', array('message' => 'Uloskirjautuminen onnistui!'));
-        
     }
 
     public static function handle_login() {
 
-         $params = $_POST;
-        
+        $params = $_POST;
+
         Kint::dump($params);
 
-        $kayttaja = Kayttaja::authenticate($params['ktunnus'], $params['salasana']);
+        $user = Kayttaja::authenticate($params['ktunnus'], $params['salasana']);
 
-        
-        
-        if (!$kayttaja) {
+
+
+        if (!$user) {
             View::make('kayttaja/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana',
-            'ktunnus' => $params['ktunnus']));
+                'ktunnus' => $params['ktunnus']));
         } else {
-            $_SESSION['kayttaja'] = $kayttaja->id;
-            Redirect::to('/foorumi', array('message' => 'Tervetuloa takaisin ' . $kayttaja->ktunnus . '!'));
+            $_SESSION['user'] = $user->id;
+            Redirect::to('/foorumi', array('message' => 'Tervetuloa takaisin ' . $user->ktunnus . '!'));
         }
 //        
-        
-        
     }
 
     public static function index() {
@@ -116,6 +112,8 @@ class KayttajaController extends BaseController {
             'kuvaus' => $params['kuvaus']);
 
         $kayttaja = new Kayttaja($attributes);
+
+        Kint::dump($kayttaja);
 
         $errors = $kayttaja->errors();
 

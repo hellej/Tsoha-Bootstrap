@@ -67,7 +67,7 @@ class Kayttaja extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $kayttaja = new Kayttaja(array(
+            $user = new Kayttaja(array(
                 'id' => $row['id'],
                 'ktunnus' => $row['ktunnus'],
                 'nimi' => $row['nimi'],
@@ -76,7 +76,7 @@ class Kayttaja extends BaseModel {
                 'yllapitaja' => $row['yllapitaja'],
                 'kuvaus' => $row['kuvaus']));
 
-            return $kayttaja;
+            return $user;
         }
         return null;
     }
@@ -90,9 +90,7 @@ class Kayttaja extends BaseModel {
             'kuvaus' => $this->kuvaus
         ));
 
-
         $row = $query->fetch();
-
         $this->id = $row['id'];
     }
 
@@ -105,7 +103,7 @@ class Kayttaja extends BaseModel {
             'kuvaus' => $this->kuvaus, 'id' => $this->id
         ));
 
-        $row = $query->fetch();
+//        $row = $query->fetch();
 //        $this->id = $row['id'];
     }
 
