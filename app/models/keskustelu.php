@@ -35,10 +35,10 @@ class Keskustelu extends BaseModel {
         return $keskustelut;
     }
 
-    public static function save() {
+    public function save() {
 
-        $query = DB::connection()->prepare('INSERT INTO Keskustelu (otsikko, sisalto, aika, luoja_id, luoja_ktunnus)  Values(:otsikko, :sisalto, NOW(), :luoja_id, luoja_ktunnus) RETURNING id');
-        $query->execute(array('otsikko' => $this->otsikko, 'sisalto' => $this->sisalto, 'luoja_id' => $this->luoja_id, 'luoja_ktunnus' => $this->luoja_ktunnus));
+        $query = DB::connection()->prepare('INSERT INTO Keskustelu (otsikko, sisalto, aika, luoja_id)  Values(:otsikko, :sisalto, NOW(), :luoja_id) RETURNING id');
+        $query->execute(array('otsikko' => $this->otsikko, 'sisalto' => $this->sisalto, 'luoja_id' => $this->luoja_id));
 
         $row = $query->fetch();
         $this->id = $row['id'];

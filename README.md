@@ -6,9 +6,10 @@ Yleisiä linkkejä:
 * [Linkki sovelluksen etusivulle] (http://joohelle.users.cs.helsinki.fi/helle/foorumi)
 
 
-## Viikon neljä HTML -sivut
+## Käynnistysohje:
 käyttäjä: helle, salasana: aurinko
 
+## Viikon neljä HTML -sivut
 * [Linkki kirjautumissivulle] (http://joohelle.users.cs.helsinki.fi/helle/login)
  Yläpalkin kolme painiketta toimivat; “kirjaudu sisään” painike muuttuu “omat tiedot” painikkeeksi kun käyttäjä on sisällä.
 

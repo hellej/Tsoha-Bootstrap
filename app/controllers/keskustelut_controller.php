@@ -25,7 +25,12 @@ class KeskusteluController extends BaseController {
 
 //        View::make('keskustelu/index.html');
 
+        
         $params = $_POST;
+        
+        Kint::dump($params);
+        $userid = $_SESSION['user'];
+        Kint::dump($userid);
 
         if (isset($_SESSION['user'])) {
             $userid = $_SESSION['user'];
@@ -41,9 +46,14 @@ class KeskusteluController extends BaseController {
             );
 
             $keskustelu = new Keskustelu($attributes);
+            
+            
+            Kint::dump($keskustelu);
+            
             $keskustelu->save();
 
-            Redirect::to('/keskustelulistaus/' . $this->id, array('message' => 'Onnistui!'));
+            Redirect::to('/vastinelistaus/' . $keskustelu->id, array('message' => 'Onnistui!'));
+            
         } else {
             
         }

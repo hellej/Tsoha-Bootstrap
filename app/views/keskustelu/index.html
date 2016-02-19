@@ -5,7 +5,7 @@
 <br>
 
 <p>
-    <a href="http://joohelle.users.cs.helsinki.fi/helle/uusikeskustelu" 
+    <a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/uusi" 
        class="btn btn-success">Aloita uusi keskustelu</a>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" 
        class="btn btn-primary">Palaa etusivulle</a>
@@ -45,7 +45,7 @@
 {% for keskustelu in keskustelut %}
 
 <h3><a href="{{base_path}}/vastinelistaus/{{keskustelu.id}}">{{keskustelu.otsikko}}</a>  <small>Käyttäjältä: </small> 
-    {{keskustelu.kirjoittaja_id}} <small>Kello: {{keskustelu.aika}}  Viestejä: TBA</small></h3>
+    {{keskustelu.luoja_ktunnus}} <small>Kello: {{keskustelu.aika}}  Viestejä: TBA</small></h3>
 
 <p>
     {{keskustelu.sisalto}}

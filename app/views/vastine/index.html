@@ -7,7 +7,7 @@
 
 
 <h3><a href="#">{{keskustelu.otsikko}}</a>  <small>Käyttäjältä: </small> 
-    {{keskustelu.kirjoittaja_ktunnus}} <small> {{keskustelu.aika}} </small></h3>
+    {{keskustelu.luoja_ktunnus}} <small> {{keskustelu.aika}} </small></h3>
 
 
 {{keskustelu.sisalto}}
@@ -28,6 +28,22 @@
 
 
 {% endfor %}
+
+<br>
+
+<form id="form-group" method="post" action="{{base_path}}/vastine">
+  
+    <div class="input-group" >
+        <textarea placeholder="Kirjoita vastaus keskusteluun tänne..." name="sisalto" class="form-control custom-control" rows="6" style="resize:none"></textarea>     
+        <span class="input-group-addon">                                            
+            <button type="submit" name="post_keskustelu" class="btn btn-primary">
+                Tallenna
+            </button>
+        </span>
+    </div>
+    
+</form>
+
 
 
 {% endblock %}

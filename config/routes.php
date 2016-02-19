@@ -69,22 +69,25 @@ $routes->post('/ryhma', function() {
 
 
 
-
+$routes->post('/keskustelu', function() {
+    KeskusteluController::store();
+});
 $routes->get('/keskustelulistaus', function() {
     KeskusteluController::index();
 });
 $routes->get('/keskustelulistaus/uusi', function() {
     KeskusteluController::create();
 });
-$routes->post('/keskustelu', function() {
-    KeskusteluController::store();
-});
+
 
 
 
 
 $routes->get('/vastinelistaus/:id', function($id) {
     VastineController::index($id);
+});
+$routes->post('/vastine', function($id) {
+    VastineController::store();
 });
 
 
