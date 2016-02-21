@@ -15,9 +15,9 @@ class AiheController extends BaseController {
     }
 
     public static function edit($id) {
+        self::check_moderator();
 
         $aihe = Aihe::find($id);
-
         View::make('aihe/edit.html', array('aihe' => $aihe));
     }
 
@@ -28,39 +28,37 @@ class AiheController extends BaseController {
     }
 
     public static function create() {
+        self::check_moderator();
 
         View::make('aihe/uusi.html');
     }
 
     public static function store() {
+        self::check_moderator();
 
         $params = $_POST;
 
-        if (isset($_SESSION['user'])) {
+        $userid = $_SESSION['user'];
 
-            $userid = $_SESSION['user'];
+        $attributes = array(
+            'nimi' => $params['nimi'],
+            'luoja_id' => $userid
+        );
 
+        $aihe = new Aihe($attributes);
 
-            $attributes = array(
-                'nimi' => $params['nimi'],
-                'luoja_id' => $userid
-            );
+        $errors = $aihe->errors();
 
-//            Kint::dump($aihe);
-
-            $aihe = new Aihe($attributes);
+        if (count($errors) == 0) {
             $aihe->save();
-
-//            Kint::dump($aihe);
-
             Redirect::to('/aihelistaus', array('message' => 'Aihe lisätty!'));
         } else {
-
-            View::make('aihe/uusi.html', array('message' => 'Muistithan kirjautua sisään?'));
+            Redirect::to('/aihelistaus/uusi', array('errors' => $errors));
         }
     }
 
     public static function destroy($id) {
+        self::check_moderator();
 
         $aihe = Aihe::find($id);
         $aihe->destroy();
@@ -68,6 +66,7 @@ class AiheController extends BaseController {
     }
 
     public static function update($id) {
+        self::check_moderator();
 
         $params = $_POST;
         $vanhaaihe = Aihe::find($id);
@@ -81,10 +80,7 @@ class AiheController extends BaseController {
 
         $aihe = new Aihe($attributes);
 
-        Kint::dump($aihe);
-
         $aihe->update();
-
 
         Redirect::to('/aihelistaus/' . $aihe->id, array('message' => 'Aiheen muokkaus onnistui'));
     }

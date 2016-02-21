@@ -4,11 +4,13 @@ INSERT INTO Ryhma (nimi, kuvaus, luontiaika)
 VALUES('hallitus', 'semmoset jotka päättää', NOW());
 
 INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, yllapitaja, kuvaus)
-VALUES('pekka', 'Pekka Lammi', 'pekka@helsinki.fi', 'asdfj', 'joo', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius d');
+VALUES('poistettu_käyttäjä', 'Poistettu Käyttäjä', 'ei sähköpostia', 'salasana', 'FALSE', 'Tämän käyttäjän viestit ovat poistettujen käyttäjätunnusten lähettämiä');
 INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, yllapitaja, kuvaus)
-VALUES('helle', 'Testijamppa', 'helle@helsinki.fi', 'aurinko', 'joo', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius d');
+VALUES('pekka', 'Pekka Lammi', 'pekka@helsinki.fi', 'aurinko', 'FALSE', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius d');
 INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, yllapitaja, kuvaus)
-VALUES('matti', 'Matti Mannonen', 'matti@helsinki.fi', 'aurinko', 'joo', 'Lorem ipsum dolor sit ame');
+VALUES('helle', 'Joose Helle', 'helle@helsinki.fi', 'aurinko', 'TRUE', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius d');
+INSERT INTO Kayttaja (ktunnus, nimi, sposti, salasana, yllapitaja, kuvaus)
+VALUES('matti', 'Matti Mannonen', 'matti@helsinki.fi', 'aurinko', 'FALSE', 'Lorem ipsum dolor sit ame');
 -- INSERT INTO Ryhmakayttaja (ryhma_id, kayttaja_id)
 -- VALUES(1,1);
 

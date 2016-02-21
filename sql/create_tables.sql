@@ -10,11 +10,11 @@ luontiaika date
 
 CREATE TABLE Kayttaja(
 id SERIAL PRIMARY KEY,
-ktunnus varchar(15) NOT NULL, 
+ktunnus varchar(20) NOT NULL, 
 nimi varchar(30) NOT NULL,
 sposti varchar(30),
 salasana varchar(15) NOT NULL,
-yllapitaja varchar(3),
+yllapitaja boolean,
 kuvaus varchar(200)
 );
 

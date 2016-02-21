@@ -2,13 +2,15 @@
 {% block content %}
 
 
-
-<!--KESKUSTELU-->
-
-
-<h3><a href="#">{{keskustelu.otsikko}}</a>  <small>Käyttäjältä: </small> 
-    {{keskustelu.luoja_ktunnus}} <small> {{keskustelu.aika}} </small></h3>
-
+<h3>{{keskustelu.otsikko}}  <small>Käyttäjältä: </small> 
+    {{keskustelu.luoja_ktunnus}} 
+    
+    <small> {{keskustelu.aika}}
+        Aiheet: 
+        {% for aihe in aiheet %}
+        {{aihe}}  
+        {% endfor %}
+    </small></h3>
 
 {{keskustelu.sisalto}}
 
@@ -16,33 +18,49 @@
 
 
 
-<!--VASTINEET-->
-
 {% for vastine in vastineet %}
-
-<h4><a href="#">{{vastine.kirjoittaja_ktunnus}}</a>  <small> {{vastine.aika}} </small></h4>
-
+<h4><a href="{{base_path}}/kayttajalistaus/{{vastine.kirjoittaja_id}}">{{vastine.kirjoittaja_ktunnus}}</a>  <small> {{vastine.aika}} </small></h4>
 <p>
     {{vastine.sisalto}} 
 </p>
-
-
 {% endfor %}
 
 <br>
 
-<form id="form-group" method="post" action="{{base_path}}/vastine">
-  
+
+<form id="form-group" method="post" action="{{base_path}}/vastinelistaus/{{keskustelu.id}}">
     <div class="input-group" >
         <textarea placeholder="Kirjoita vastaus keskusteluun tänne..." name="sisalto" class="form-control custom-control" rows="6" style="resize:none"></textarea>     
         <span class="input-group-addon">                                            
             <button type="submit" name="post_keskustelu" class="btn btn-primary">
-                Tallenna
+                Lähetä
             </button>
         </span>
     </div>
-    
 </form>
+
+<br>
+
+
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% if message %}
+<div class="alert alert-success">
+    <ul>
+        <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
 
 
 

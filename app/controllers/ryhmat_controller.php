@@ -12,42 +12,47 @@ class RyhmaController extends BaseController {
 
         $ryhmat = Ryhma::all();
         View::make('ryhma/index.html', array('ryhmat' => $ryhmat));
+        
     }
 
     public static function destroy($id) {
+        self::check_moderator();
 
         $ryhma = Ryhma::find($id);
-
         $ryhma->destroy();
 
         Redirect::to('/ryhmalistaus', array('message' => 'Ryhmä poistettu onnistuneesti'));
+        
     }
 
     public static function create() {
+        self::check_moderator();
+
         View::make('ryhma/uusi.html');
+        
     }
 
     public static function store() {
+        self::check_logged_in();
+
         $params = $_POST;
+        
+        $attributes = array(
+            'nimi' => $params['nimi'],
+            'kuvaus' => $params['kuvaus']
+        );
 
+        $ryhma = new Ryhma($attributes);
 
-        if (isset($_SESSION['user'])) {
+        $errors = $ryhma->errors();
 
-            $attributes = array(
-                'nimi' => $params['nimi'],
-                'kuvaus' => $params['kuvaus']
-            );
-
-            $ryhma = new Ryhma($attributes);
-
+        if (count($errors) == 0) {
             $ryhma->save();
-
             Redirect::to('/ryhmalistaus', array('message' => 'Ryhmä tallennettu'));
-            
         } else {
-
-            View::make('ryhma/uusi.html', array('message' => 'Muistithan kirjautua sisään?'));
+            View::make('ryhma/uusi.html', array('errors' => $errors));
         }
+        
     }
 
 }

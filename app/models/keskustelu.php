@@ -8,16 +8,46 @@
 
 class Keskustelu extends BaseModel {
 
-    public $id, $otsikko, $sisalto, $aika, $luoja_id, $luoja_ktunnus;
+    public $id, $otsikko, $sisalto, $aika, $luoja_id, $luoja_ktunnus, $viestienmaara, $aiheet;
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+
+        $this->validators = array('validate_otsikko', 'validate_sisalto');
     }
 
-    public static function all() {
+    public static function all($options) {
 
-        $query = DB::connection()->prepare('SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.luoja_id = Kayttaja.id');
-        $query->execute();
+        if (isset($options['search_ktunnus'])) {
+            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja '
+                    . 'WHERE Keskustelu.luoja_id = Kayttaja.id';
+            $query_string .= ' AND Kayttaja.ktunnus LIKE :like ORDER BY Keskustelu.aika DESC';
+
+            $query = DB::connection()->prepare($query_string);
+
+            $options['like'] = '%' . $options['search_ktunnus'] . '%';
+            $search_ktunnus = array('like' => $options['like']);
+
+            $query->execute($search_ktunnus);
+        } else if (isset($options['search_aihe'])) {
+            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus, Aihe.nimi FROM Keskustelu, Kayttaja, Keskusteluaihe, Aihe '
+                    . 'WHERE Keskustelu.luoja_id = Kayttaja.id AND Keskustelu.id = Keskusteluaihe.keskustelu_id AND Keskusteluaihe.aihe_id = Aihe.id';
+
+            $query_string .= ' AND Aihe.nimi LIKE :like ORDER BY Keskustelu.aika DESC';
+
+            $query = DB::connection()->prepare($query_string);
+
+            $options['like'] = '%' . $options['search_aihe'] . '%';
+            $search_aihe = array('like' => $options['like']);
+
+            $query->execute($search_aihe);
+        } else {
+            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.luoja_id = Kayttaja.id ORDER BY Keskustelu.aika DESC';
+            $query = DB::connection()->prepare($query_string);
+
+            $query->execute();
+        }
+
         $rows = $query->fetchAll();
         $keskustelut = array();
 
@@ -28,11 +58,39 @@ class Keskustelu extends BaseModel {
                 'sisalto' => $row['sisalto'],
                 'aika' => $row['aika'],
                 'luoja_id' => $row['luoja_id'],
-                'luoja_ktunnus' => $row['ktunnus']
+                'luoja_ktunnus' => $row['ktunnus'],
+                'viestienmaara' => Keskustelu::viestienmaara($row['id']),
+                'aiheet' => Aihe::getKeskustelunAiheet($row['id'])
             ));
         }
 
         return $keskustelut;
+    }
+
+    public function viestienmaara($id) {
+
+        $query = DB::connection()->prepare('SELECT COUNT(id) FROM Vastine WHERE keskustelu_id = :id');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+        $maara = $row['count'];
+
+        return $maara;
+    }
+
+    public function getAiheet($id) {
+
+
+        $query = DB::connection()->prepare('SELECT Aihe.nimi FROM Aihe, Keskusteluaihe WHERE :id = Keskusteluaihe.keskustelu_id AND Keskusteluaihe.aihe_id = Aihe.id');
+        $query->execute(array('id' => $id));
+        $rows = $query->fetchAll();
+
+        $aiheet = array();
+
+        foreach ($rows as $row) {
+            $aiheet[] = $row['nimi'];
+        }
+
+        return $aiheet;
     }
 
     public function save() {
@@ -42,6 +100,11 @@ class Keskustelu extends BaseModel {
 
         $row = $query->fetch();
         $this->id = $row['id'];
+
+        foreach ($this->aiheet as $aihe) {
+            $query = DB::connection()->prepare('INSERT INTO Keskusteluaihe (aihe_id, keskustelu_id) Values(:aihe_id, :keskustelu_id)');
+            $query->execute(array('aihe_id' => $aihe, 'keskustelu_id' => $this->id));
+        }
     }
 
     public static function find($id) {
@@ -79,6 +142,16 @@ class Keskustelu extends BaseModel {
         $knimi = $row['nimi'];
 
         return $knimi;
+    }
+
+    public function validate_otsikko() {
+
+        return $this->validate_string_length('otsikko', $this->otsikko, 3);
+    }
+
+    public function validate_sisalto() {
+
+        return $this->validate_string_length('sisältö', $this->sisalto, 3);
     }
 
 }

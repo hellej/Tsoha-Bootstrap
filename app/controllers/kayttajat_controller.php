@@ -11,23 +11,22 @@ class KayttajaController extends BaseController {
     public static function login() {
 
         View::make('kayttaja/login.html');
+        
     }
 
     public static function logout() {
-        session_unset();
 
+        $_SESSION['user'] = null;
+        session_unset();
         Redirect::to('/login', array('message' => 'Uloskirjautuminen onnistui!'));
+        
     }
 
     public static function handle_login() {
 
         $params = $_POST;
 
-        Kint::dump($params);
-
         $user = Kayttaja::authenticate($params['ktunnus'], $params['salasana']);
-
-
 
         if (!$user) {
             View::make('kayttaja/login.html', array('error' => 'Väärä käyttäjätunnus tai salasana',
@@ -36,30 +35,38 @@ class KayttajaController extends BaseController {
             $_SESSION['user'] = $user->id;
             Redirect::to('/foorumi', array('message' => 'Tervetuloa takaisin ' . $user->ktunnus . '!'));
         }
-//        
+        
     }
 
     public static function index() {
+        self::check_logged_in();
 
         $kayttajat = Kayttaja::all();
-        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
         View::make('kayttaja/index.html', array('kayttajat' => $kayttajat));
+        
     }
 
     public static function show($id) {
+        self::check_logged_in();
 
         $kayttaja = Kayttaja::find($id);
-        View::make('kayttaja/esittely.html', array('kayttaja' => $kayttaja));
+        $ryhmat = Ryhma::getKayttajanRyhmat($id);
+        View::make('kayttaja/esittely.html', array('kayttaja' => $kayttaja, 'ryhmat' => $ryhmat));
+        
     }
 
     public static function edit($id) {
+        self::editingMeOrBeingModerator($id);
 
+        $ryhmat = Ryhma::all();
         $kayttaja = Kayttaja::find($id);
 
-        View::make('kayttaja/edit.html', array('kayttaja' => $kayttaja));
+        View::make('kayttaja/edit.html', array('kayttaja' => $kayttaja, 'ryhmat' => $ryhmat));
+        
     }
 
     public static function destroy($id) {
+        self::editingMeOrBeingModerator($id);
 
         $params = $_POST;
 
@@ -67,15 +74,17 @@ class KayttajaController extends BaseController {
             'id' => $id);
 
         $kayttaja = new Kayttaja($attributes);
-
         $kayttaja->destroy();
 
         Redirect::to('/kayttajalistaus', array('message' => 'Käyttäjä poistettu onnistuneesti'));
+        
     }
 
     public static function update($id) {
 
         $params = $_POST;
+
+        $yllapitaja = self::userIsModerator($params);
 
         $attributes = array(
             'id' => $id,
@@ -83,51 +92,84 @@ class KayttajaController extends BaseController {
             'nimi' => $params['nimi'],
             'sposti' => $params['sposti'],
             'salasana' => $params['salasana'],
-            'yllapitaja' => $params['yllapitaja'],
-            'kuvaus' => $params['kuvaus']);
+            'yllapitaja' => $yllapitaja,
+            'kuvaus' => $params['kuvaus'],
+            'ryhmat' => array());
+
+        if (isset($params['ryhmat'])) {
+            $ryhmat = $params['ryhmat'];
+            foreach ($ryhmat as $ryhma) {
+                $attributes['ryhmat'][] = $ryhma;
+            }
+        }
 
         $kayttaja = new Kayttaja($attributes);
-
         $errors = $kayttaja->errors();
-
 
         if (count($errors) > 0) {
             View::make('kayttaja/edit.html', array('errors' => $errors, 'kayttaja' => $attributes));
         } else {
             $kayttaja->update();
-            Redirect::to('/kayttajalistaus/' . $kayttaja->id, array('message' => 'Käyttäjäteidot muokattu onnistuneesti!'));
+            Redirect::to('/kayttajalistaus/' . $kayttaja->id, array('message' => 'Käyttäjätiedot muokattu onnistuneesti!'));
         }
+        
     }
 
     public static function store() {
 
         $params = $_POST;
 
+        $yllapitaja = self::userIsModerator($params);
+
         $attributes = array(
             'ktunnus' => $params['ktunnus'],
             'nimi' => $params['nimi'],
             'sposti' => $params['sposti'],
             'salasana' => $params['salasana'],
-            'yllapitaja' => $params['yllapitaja'],
-            'kuvaus' => $params['kuvaus']);
+            'yllapitaja' => $yllapitaja,
+            'kuvaus' => $params['kuvaus'],
+            'ryhmat' => array());
+
+
+        if (isset($params['ryhmat'])) {
+
+            $ryhmat = $params['ryhmat'];
+            foreach ($ryhmat as $ryhma) {
+                $attributes['ryhmat'][] = $ryhma;
+            }
+        }
 
         $kayttaja = new Kayttaja($attributes);
-
-        Kint::dump($kayttaja);
 
         $errors = $kayttaja->errors();
 
         if (count($errors) == 0) {
             $kayttaja->save();
-            Redirect::to('/kayttajalistaus/' . $kayttaja->id, array('message' => 'Käyttäjätiedot tallennettu!'));
+            Redirect::to('/login', array('message' => 'Käyttäjätiedot tallennettu, voit nyt kirjautua sisään!'));
         } else {
-            View::make('kayttaja/uusi.html', array('errors' => $errors, 'attributes' => $attributes));
+            $ryhmat = Ryhma::all();
+            View::make('kayttaja/uusi.html', array('errors' => $errors, 'attributes' => $attributes, 'ryhmat' => $ryhmat));
         }
+        
+    }
+
+    public static function userIsModerator($params) {
+
+        if (isset($params['yllapitaja'])) {
+            $yllapitaja = 'TRUE';
+        } else {
+            $yllapitaja = 'FALSE';
+        }
+
+        return $yllapitaja;
+        
     }
 
     public static function create() {
 
-        View::make('kayttaja/uusi.html');
+        $ryhmat = Ryhma::all();
+        View::make('kayttaja/uusi.html', array('ryhmat' => $ryhmat));
+        
     }
 
 }

@@ -1,6 +1,5 @@
 <?php
 
-
 $routes->get('/foorumi', function() {
     EtusivuContoller::index();
 });
@@ -67,8 +66,9 @@ $routes->post('/ryhma', function() {
 });
 
 
-
-
+$routes->post('/keskustelu/haku', function() {
+    KeskusteluController::index();
+});
 $routes->post('/keskustelu', function() {
     KeskusteluController::store();
 });
@@ -82,12 +82,11 @@ $routes->get('/keskustelulistaus/uusi', function() {
 
 
 
-
+$routes->post('/vastinelistaus/:id', function($id) {
+    VastineController::store($id);
+});
 $routes->get('/vastinelistaus/:id', function($id) {
     VastineController::index($id);
-});
-$routes->post('/vastine', function($id) {
-    VastineController::store();
 });
 
 
@@ -106,41 +105,6 @@ $routes->post('/login', function() {
 
 
 
-
-
 $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
-
-$routes->get('/aihekuvaus', function() {
-    HelloWorldController::aihekuvaus();
-});
-
-$routes->get('/yaihelistaus', function() {
-    HelloWorldController::yaihelistaus();
-});
-
-$routes->get('/viestilistaus', function() {
-    HelloWorldController::viestilistaus();
-});
-
-$routes->get('/ykeskustelulistaus', function() {
-    HelloWorldController::ykeskustelulistaus();
-});
-
-
-
-$routes->get('/yetusivu', function() {
-    HelloWorldController::yetusivu();
-});
-
-
-
-
-
-
-
-
-
-
-

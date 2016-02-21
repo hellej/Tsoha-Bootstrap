@@ -18,10 +18,33 @@ class BaseController {
         // Toteuta kirjautumisen tarkistus tähän.
         // Jos käyttäjä ei ole kirjautunut sisään, ohjaa hänet toiselle sivulle (esim. kirjautumissivulle).
 
-        if (isset($_SESSION['kayttaja'])) {
-            
+        if (!isset($_SESSION['user'])) {
+            Redirect::to('/login', array('error' => 'kirjautuminen vaaditaan !'));
         }
-        Redirect::to('/kayttaja/login');
+    }
+
+    public static function check_moderator() {
+
+        self::check_logged_in();
+
+        $userid = $_SESSION['user'];
+        $user = Kayttaja::find($userid);
+
+        if (!$user->yllapitaja) {
+            Redirect::to('/foorumi', array('error' => 'Ylläpitäjyys vaaditaan !'));
+        }
+    }
+
+    public static function editingMeOrBeingModerator($id) {
+
+        self::check_logged_in();
+
+        $userid = $_SESSION['user'];
+        $user = Kayttaja::find($userid);
+
+        if ($userid != $id && !$user->yllapitaja) {
+            Redirect::to('/kayttajalistaus', array('error' => 'Vain ylläpito voi muokata muiden käyttäjien tietoja !'));
+        }
     }
 
 }

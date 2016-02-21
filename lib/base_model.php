@@ -32,14 +32,14 @@ class BaseModel {
         return $errors;
     }
 
-    public function validate_string_length($string, $length) {
+    public function validate_string_length($attribute, $string, $length) {
 
         $error = "";
 
         if ($string == '' || $string == null) {
-            $error = 'Tyhjä sana ei käy!';
-        } else if (strlen($string) < $length) {
-            $error = 'Aika lyhyt sana?';
+            $error = $attribute.' ei voi olla tyhjä!';
+        } else if (strlen($string) <= $length) {
+            $error = $attribute. ' on oltava pidempi kuin ' .$length. ' merkkiä !';
         }
 
         return $error;

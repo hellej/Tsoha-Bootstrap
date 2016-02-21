@@ -9,6 +9,25 @@
 </div>
 {% endif %}
 
+{% if error %}
+<div class="alert alert-danger">
+    <ul>
+        <li>{{error}}</li>
+    </ul>
+</div>
+{% endif %}
+
+
+<form method="post" action="{{base_path}}/keskustelu/haku">
+    <strong> Etsi keskusteluja: </strong> &nbsp
+    <input type="text" placeholder='Kirjoittajan perusteella' name="search_ktunnus"> &nbsp
+    <strong> TAI </strong> &nbsp
+    <input type="text" placeholder='Aiheen perusteella' name="search_aihe"> &nbsp
+
+    <button type="submit" class="btn btn-primary">Etsi</button>
+
+
+</form>
 
 <h1>Keskustelufoorumi</h1> 
 
@@ -23,30 +42,16 @@
        class="btn btn-default">Ryhmät</a>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus"                                  
        class="btn btn-default">Käyttäjät</a>
-    <a href="http://joohelle.users.cs.helsinki.fi/helle/yetusivu""                                             
-       class="btn btn-default">Ylläpitäjän työkalut</a>
+    <!--    <a href="http://joohelle.users.cs.helsinki.fi/helle/yetusivu""                                             
+           class="btn btn-default">Ylläpitäjän työkalut</a>-->
 </p>
 
 
-<h3>Etsi viestejä:</h3>
 
-<form> 
-
-    Kirjoittajan perusteella: <input type="text" name="hnimi" </input>
-    Aiheen perusteella: <input type="text" name"haihe" </input>
-    <!--    <br> <br>
-        Aikaväliltä (YYYYMMDD – YYYYMMDD): <br> <input type="text"</input> <input type="text"</input>
-        <br> <br>   -->
-
-    <a href="http://joohelle.users.cs.helsinki.fi/helle/viestilistaus"   
-       class="btn btn-primary">haku</a>
-</form>
-<br>
 
 
 
 <h3>Viimeisimmät viestit</h3>
-
 
 
 <table class="table table-striped table-bordered">
@@ -59,18 +64,18 @@
     </thead>
 
     {% for vastine in vastineet %}
-
     <tbody>
-        <!-- Listataan viestit tähän, otsikko toimii linkkinä keskusteluun-->
         <tr>
-            <td><a href="{{base_path}}/vastinelistaus/{{vastine.keskustelu_id}}">{{vastine.aika}}</a></td>
-            <td><a href="{{base_path}}/kayttajalistaus/{{vastine.kirjoittaja_id}}">{{vastine.kirjoittaja_ktunnus}}</a></td>
-            <td><a href="{{base_path}}/keskustelulistaus">{{vastine.keskustelu_otsikko}}</a></td>
+            <td width="30%"> {{vastine.aika}}</td>
+            <td width="20%"> <a href="{{base_path}}/kayttajalistaus/{{vastine.kirjoittaja_id}}">{{vastine.kirjoittaja_ktunnus}}</a></td>
+            <td width="50%"> <a href="{{base_path}}/vastinelistaus/{{vastine.keskustelu_id}}">{{vastine.keskustelu_otsikko}}</a></td>
 
         </tr>
     </tbody>
-
     {% endfor %}
-
 </table>
+
+
+
+
 {% endblock %}

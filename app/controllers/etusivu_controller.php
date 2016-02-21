@@ -12,14 +12,7 @@ class EtusivuContoller extends BaseController {
         
         $vastineet = Vastine::all();
         
-        
-        View::make('etusivu/index.html', array('vastineet' => $vastineet));
-        
-        
-        
+        View::make('etusivu/index.html', array('vastineet' => $vastineet)); 
     }
-    
-    
-    
     
 }

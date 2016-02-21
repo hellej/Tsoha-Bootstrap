@@ -10,6 +10,14 @@
 </div>
 {% endif %}
 
+{% if error %}
+<div class="alert alert-danger">
+    <ul>
+        <li>{{error}}</li>
+    </ul>
+</div>
+{% endif %}
+
 
 
 <h1>Foorumin nykyiset käyttäjät:</h1>
@@ -39,7 +47,15 @@
             <td>{{kayttaja.sposti}}</td>
             <td>{{kayttaja.salasana}}</td>
             <td><a class="btn btn-default btn-sm" href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/edit">muokkaa</a></td>
-            <td>{{forms.destroy_button("#{base_path}/kayttajalistaus/#{kayttaja.id}/destroy")}}</td>
+            <td>
+                <form method="post" action="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/destroy" style="display: inline-block;"
+                      class="destroy-form" data-confirm="Oletko varma!? Käyttäjän viestit ja keskustelut eivät poistu, mutta niiden kirjoittajaksi merkitään 'poistettu käyttäjä' ">
+                    <button type="submit" class="btn btn-danger"
+                            >{{text|default('Poista')}}
+                    </button>
+                </form>
+
+            </td>
         </tr>
         {% endfor %}
     </tbody>

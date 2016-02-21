@@ -9,53 +9,77 @@
 class KeskusteluController extends BaseController {
 
     public static function index() {
+        self::check_logged_in();
 
-        $keskustelut = Keskustelu::all();
-        // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
-        View::make('keskustelu/index.html', array('keskustelut' => $keskustelut));
+        $params = $_POST;
+
+//KATSOTAAN MITÄ HAKUSANOJA SAATIIN:
+        $options = self::readSearchTerms($params);
+
+        $keskustelut = Keskustelu::all($options);
+        View::make('keskustelu/index.html', array('keskustelut' => $keskustelut, 'options' => $options));
+    }
+
+    public static function readSearchTerms($params) {
+
+        $options = array();
+
+        if (isset($params['search_ktunnus'])) {
+            $search_ktunnus = $params['search_ktunnus'];
+            if (strlen($search_ktunnus) > 1) {
+                $options['search_ktunnus'] = $params['search_ktunnus'];
+            }
+        }
+        if (isset($params['search_aihe'])) {
+            $search_aihe = $params['search_aihe'];
+            if (strlen($search_aihe) > 1) {
+                $options['search_aihe'] = $params['search_aihe'];
+            }
+        }
+
+        return $options;
     }
 
     public static function create() {
+        self::check_logged_in();
 
-
-        View::make('keskustelu/uusi.html');
+        $aiheet = Aihe::all();
+        View::make('keskustelu/uusi.html', array('aiheet' => $aiheet));
     }
 
     public static function store() {
-
-//        View::make('keskustelu/index.html');
-
+        self::check_logged_in();
         
         $params = $_POST;
-        
-        Kint::dump($params);
+
         $userid = $_SESSION['user'];
-        Kint::dump($userid);
+        $user = Kayttaja::find($userid);
+        $userktunnus = $user->ktunnus;
 
-        if (isset($_SESSION['user'])) {
-            $userid = $_SESSION['user'];
-            $user = Kayttaja::find($userid);
-            $userktunnus = $user->ktunnus;
+        $attributes = array(
+            'otsikko' => $params['otsikko'],
+            'sisalto' => $params['sisalto'],
+            'luoja_id' => $userid,
+            'luoja_ktunnus' => $userktunnus,
+            'aiheet' => array()
+        );
 
+        if (isset($params['aiheet'])) {
+            $aiheet = $params['aiheet'];
+            foreach ($aiheet as $aihe) {
+                $attributes['aiheet'][] = $aihe;
+            }
+        }
 
-            $attributes = array(
-                'otsikko' => $params['otsikko'],
-                'sisalto' => $params['sisalto'],
-                'luoja_id' => $userid,
-                'luoja_ktunnus' => $userktunnus
-            );
+        $keskustelu = new Keskustelu($attributes);
 
-            $keskustelu = new Keskustelu($attributes);
-            
-            
-            Kint::dump($keskustelu);
-            
+        $errors = $keskustelu->errors();
+
+        if (count($errors) == 0) {
             $keskustelu->save();
-
             Redirect::to('/vastinelistaus/' . $keskustelu->id, array('message' => 'Onnistui!'));
-            
         } else {
-            
+            Redirect::to('/keskustelulistaus/uusi', array('errors' => $errors));
         }
     }
 
