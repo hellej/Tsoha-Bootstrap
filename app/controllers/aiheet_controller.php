@@ -30,13 +30,13 @@ class AiheController extends BaseController {
     }
 
     public static function create() {
-        self::check_moderator();
+        self::check_logged_in();
 
         View::make('aihe/uusi.html');
     }
 
     public static function store() {
-        self::check_moderator();
+        self::check_logged_in();
 
         $params = $_POST;
 
