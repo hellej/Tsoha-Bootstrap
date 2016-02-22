@@ -9,6 +9,7 @@
 class RyhmaController extends BaseController {
 
     public static function index() {
+        self::check_logged_in();
 
         $ryhmat = Ryhma::all();
         View::make('ryhma/index.html', array('ryhmat' => $ryhmat));

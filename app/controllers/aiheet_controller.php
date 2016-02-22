@@ -9,6 +9,7 @@
 class AiheController extends BaseController {
 
     public static function index() {
+        self::check_logged_in();
 
         $aiheet = Aihe::all();
         View::make('aihe/index.html', array('aiheet' => $aiheet));
@@ -22,6 +23,7 @@ class AiheController extends BaseController {
     }
 
     public static function show($id) {
+        self::check_logged_in();
 
         $aihe = Aihe::find($id);
         View::make('aihe/esittely.html', array('aihe' => $aihe));
