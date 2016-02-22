@@ -18,37 +18,9 @@ class Keskustelu extends BaseModel {
 
     public static function all($options) {
 
-        if (isset($options['search_ktunnus'])) {
-            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja '
-                    . 'WHERE Keskustelu.luoja_id = Kayttaja.id';
-            $query_string .= ' AND Kayttaja.ktunnus LIKE :like ORDER BY Keskustelu.aika DESC';
-
-            $query = DB::connection()->prepare($query_string);
-
-            $options['like'] = '%' . $options['search_ktunnus'] . '%';
-            $search_ktunnus = array('like' => $options['like']);
-
-            $query->execute($search_ktunnus);
-        } else if (isset($options['search_aihe'])) {
-            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus, Aihe.nimi FROM Keskustelu, Kayttaja, Keskusteluaihe, Aihe '
-                    . 'WHERE Keskustelu.luoja_id = Kayttaja.id AND Keskustelu.id = Keskusteluaihe.keskustelu_id AND Keskusteluaihe.aihe_id = Aihe.id';
-
-            $query_string .= ' AND Aihe.nimi LIKE :like ORDER BY Keskustelu.aika DESC';
-
-            $query = DB::connection()->prepare($query_string);
-
-            $options['like'] = '%' . $options['search_aihe'] . '%';
-            $search_aihe = array('like' => $options['like']);
-
-            $query->execute($search_aihe);
-        } else {
-            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.luoja_id = Kayttaja.id ORDER BY Keskustelu.aika DESC';
-            $query = DB::connection()->prepare($query_string);
-
-            $query->execute();
-        }
-
+        $query = self::makeSearchOrAllQuery($options);
         $rows = $query->fetchAll();
+        
         $keskustelut = array();
 
         foreach ($rows as $row) {
@@ -65,6 +37,53 @@ class Keskustelu extends BaseModel {
         }
 
         return $keskustelut;
+    }
+
+    public static function makeSearchOrAllQuery($options) {
+
+        if (isset($options['search_ktunnus'])) {
+            $search_query = ' AND Kayttaja.ktunnus LIKE :like ORDER BY Keskustelu.aika DESC';
+            $search_word = '%' . $options['search_ktunnus'] . '%';
+            $search_type = "ktunnus";
+        } else if (isset($options['search_aihe'])) {
+            $search_query = ' AND Aihe.nimi LIKE :like ORDER BY Keskustelu.aika DESC';
+            $search_word = '%' . $options['search_aihe'] . '%';
+            $search_type = "aihe";
+        }
+        
+        if (isset($search_query)) {
+            $query = self::formExecuteAndReturnSearchQuery($search_query, $search_word, $search_type);
+        } else {
+            $query = self::formExecuteAndReturnAllQuery();
+        }
+
+        return $query;
+    }
+
+    public static function formExecuteAndReturnSearchQuery($search_query, $search_word, $search_type) {
+
+        if ($search_type == "aihe") {
+            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja, Keskusteluaihe, Aihe '
+                    . 'WHERE Keskustelu.luoja_id = Kayttaja.id AND Keskustelu.id = Keskusteluaihe.keskustelu_id AND Keskusteluaihe.aihe_id = Aihe.id';
+        } else if ($search_type == "ktunnus") {
+            $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja '
+                    . 'WHERE Keskustelu.luoja_id = Kayttaja.id ';
+        }
+
+        $query_string .= $search_query;
+        $query = DB::connection()->prepare($query_string);
+
+        $search_ktunnus = array('like' => $search_word);
+        $query->execute($search_ktunnus);
+
+        return $query;
+    }
+
+    public static function formExecuteAndReturnAllQuery() {
+        $query_string = 'SELECT Keskustelu.id, Keskustelu.otsikko, Keskustelu.sisalto, Keskustelu.aika, Keskustelu.luoja_id, Kayttaja.ktunnus FROM Keskustelu, Kayttaja WHERE Keskustelu.luoja_id = Kayttaja.id ORDER BY Keskustelu.aika DESC';
+        $query = DB::connection()->prepare($query_string);
+        $query->execute();
+        return $query;
     }
 
     public function viestienmaara($id) {
