@@ -10,9 +10,10 @@ class EtusivuContoller extends BaseController {
     
     public static function index() {
         
+        $options = array();
         $vastineet = Vastine::all();
-        
-        View::make('etusivu/index.html', array('vastineet' => $vastineet)); 
+        $keskustelut = Keskustelu::all($options);
+        View::make('etusivu/index.html', array('vastineet' => $vastineet, 'keskustelut' => $keskustelut)); 
     }
     
 }
