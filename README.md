@@ -15,7 +15,7 @@ käyttäjä: helle, salasana: aurinko
 * [käyttäjän esittely] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/2)
 * [käyttäjän muokkaus] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/2/edit)
 * [keskustelujen listaus] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus)
-* [keskustelun vastineiden listaus] (http://joohelle.users.cs.helsinki.fi/helle/vastinelistaus/1)
+* [keskustelun vastineiden listaus] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/1)
 * [aiheiden listaus] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus)
 * [aiheen lisäys] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus/uusi)
 * [aiheen muokkaus] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus/1/edit)
