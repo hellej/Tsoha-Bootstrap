@@ -24,22 +24,22 @@
 
     <div class="form-group">
         <label>Nimi *</label>
-        <input type="text" name="nimi" class="form-control">
+        <input type="text" name="nimi" class="form-control" value="{{attributes.nimi}}">
     </div>
 
     <div class="form-group">
         <label>Käyttäjätunnus *</label>
-        <input type="text" name="ktunnus" class="form-control">
+        <input type="text" name="ktunnus" class="form-control" value="{{attributes.ktunnus}}">
     </div>
 
     <div class="form-group">
         <label>Sähköposti *</label>
-        <input type="text" name="sposti" class="form-control">
+        <input type="text" name="sposti" class="form-control" value="{{attributes.sposti}}">
     </div>
 
     <div class="form-group">
         <label>Salasana *</label>
-        <input type="password" name="salasana" class="form-control">
+        <input type="password" name="salasana" class="form-control" value="{{attributes.salasana}}">
     </div>
 
     <div class="form-group">
@@ -59,7 +59,7 @@
 
     <div class="checkbox">
         <label>
-            <input name="yllapitaja" value="true" type="checkbox"> Ylläpitäjä
+            <input name="yllapitaja" value="{{attributes.yllapitaja}}" type="checkbox"> Ylläpitäjä
         </label>
     </div>
 

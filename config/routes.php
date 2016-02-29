@@ -80,13 +80,11 @@ $routes->get('/keskustelulistaus/uusi', function() {
 });
 
 
-
-
-$routes->post('/vastinelistaus/:id', function($id) {
-    VastineController::store($id);
+$routes->get('/keskustelulistaus/:id', function($id) {
+    VastineController::indexKeskustelunVastineet($id);
 });
-$routes->get('/vastinelistaus/:id', function($id) {
-    VastineController::index($id);
+$routes->post('/keskustelulistaus/:id', function($id) {
+    VastineController::store($id);
 });
 
 

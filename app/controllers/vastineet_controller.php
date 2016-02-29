@@ -8,19 +8,18 @@
 
 class VastineController extends BaseController {
 
-    public static function index($id) {
+    public static function indexKeskustelunVastineet($keskustelu_id) {
         self::check_logged_in();
         
 //        KESKUSTELUN ID
 
-        $vastineet = Vastine::allKeskustelu($id);
-        $keskustelu = Keskustelu::find($id);
-        $aiheet = Aihe::getKeskustelunAiheet($id);
+        $vastineet = Vastine::allKeskustelu($keskustelu_id);
+        $keskustelu = Keskustelu::find($keskustelu_id);
 
-        View::make('vastine/index.html', array('vastineet' => $vastineet, 'keskustelu' => $keskustelu, 'aiheet' => $aiheet));
+        View::make('vastine/index.html', array('vastineet' => $vastineet, 'keskustelu' => $keskustelu, 'aiheet' => $keskustelu->aiheet));
     }
 
-    public static function store($id) {
+    public static function store($keskustelu_id) {
         self::check_logged_in();
 
         $params = $_POST;
@@ -28,7 +27,7 @@ class VastineController extends BaseController {
 
         $attributes = array(
             'sisalto' => $params['sisalto'],
-            'keskustelu_id' => $id,
+            'keskustelu_id' => $keskustelu_id,
             'kirjoittaja_id' => $userid
         );
 
@@ -38,10 +37,10 @@ class VastineController extends BaseController {
 
         if ((count($errors)) == 0) {
             $vastine->save();
-            Redirect::to('/vastinelistaus/' . $vastine->keskustelu_id, array('message' => 'Viesti tallennettu!'));
+            Redirect::to('/keskustelulistaus/' . $vastine->keskustelu_id, array('message' => 'Viesti tallennettu!'));
         } else {
 
-            Redirect::to('/vastinelistaus/' . $vastine->keskustelu_id, array('errors' => $errors));
+            Redirect::to('/keskustelulistaus/' . $vastine->keskustelu_id, array('errors' => $errors));
         }
     }
 

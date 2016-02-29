@@ -19,51 +19,57 @@ class Aihe extends BaseModel {
 
         foreach ($rows as $row) {
 
-            $aiheet[] = new Aihe(array(
-                'id' => $row['id'],
-                'nimi' => $row['nimi'],
-                'luoja_id' => $row['luoja_id'],
-                'luoja_ktunnus' => self::getLuojaKtunnus($row),
-                'luontiaika' => $row['luontiaika'],
-                'keskustelujen_maara' => Aihe::getKeskustelujenMaara($row['id'])
-            ));
+            $aiheet[] = new Aihe(self::getAttributes($row));
         }
 
         return $aiheet;
     }
 
-    public static function getLuojaKtunnus($row) {
+    public static function find($id) {
 
-        if ((Kayttaja::find($row['luoja_id'])) != null) {
-            return Kayttaja::find($row['luoja_id'])->ktunnus;
+        $query = DB::connection()->prepare('SELECT * FROM Aihe WHERE id = :id LIMIT 1');
+        $query->execute(array('id' => $id));
+        $row = $query->fetch();
+
+        if ($row) {
+
+            $aihe = new Aihe(self::getAttributes($row));
+            return $aihe;
+        }
+
+        return null;
+    }
+
+    public static function getAttributes($row) {
+
+        $attributes = array(
+            'id' => $row['id'],
+            'nimi' => $row['nimi'],
+            'luoja_id' => $row['luoja_id'],
+            'luoja_ktunnus' => self::getLuojaKtunnus($row),
+            'luontiaika' => $row['luontiaika'],
+            'keskustelujen_maara' => self::getKeskustelujenMaara($row['id']));
+
+        return $attributes;
+    }
+
+    public static function getLuojaKtunnus($aihe_id) {
+
+        if ((Kayttaja::find($aihe_id['luoja_id'])) != null) {
+            return Kayttaja::find($aihe_id['luoja_id'])->ktunnus;
         } else {
             return "ylläpito";
         }
     }
 
-    public static function getKeskustelujenMaara($id) {
+    public static function getKeskustelujenMaara($aihe_id) {
 
         $query = DB::connection()->prepare('SELECT COUNT(id) FROM Keskusteluaihe WHERE aihe_id = :aihe_id');
-        $query->execute(array('aihe_id' => $id));
+        $query->execute(array('aihe_id' => $aihe_id));
         $row = $query->fetch();
         $maara = $row['count'];
 
         return $maara;
-    }
-
-    public static function getKeskustelunAiheet($id) {
-
-        $query = DB::connection()->prepare('SELECT Aihe.nimi FROM Aihe, Keskusteluaihe WHERE Aihe.id = Keskusteluaihe.aihe_id AND Keskusteluaihe.keskustelu_id = :id');
-        $query->execute(array('id' => $id));
-
-        $rows = $query->fetchAll();
-        $aiheet = array();
-
-        foreach ($rows as $row) {
-            $aiheet[] = $row['nimi'];
-        }
-
-        return $aiheet;
     }
 
     public function save() {
@@ -84,32 +90,25 @@ class Aihe extends BaseModel {
         $query->execute(array('id' => $this->id));
     }
 
-    public static function find($id) {
-
-        $query = DB::connection()->prepare('SELECT * FROM Aihe WHERE id = :id LIMIT 1');
-        $query->execute(array('id' => $id));
-        $row = $query->fetch();
-
-        if ($row) {
-
-            $aihe = new Aihe(array(
-                'id' => $row['id'],
-                'nimi' => $row['nimi'],
-                'luoja_id' => $row['luoja_id'],
-                'luontiaika' => $row['luontiaika'],
-                'keskustelujen_maara' => Aihe::getKeskustelujenMaara($row['id'])
-            ));
-
-            return $aihe;
-        }
-
-        return null;
-    }
-
     public function update() {
 
         $query = DB::connection()->prepare('UPDATE Aihe SET nimi = :nimi, luontiaika = :luontiaika, luoja_id = :luoja_id WHERE id = :id');
         $query->execute(array('id' => $this->id, 'nimi' => $this->nimi, 'luontiaika' => $this->luontiaika, 'luoja_id' => $this->luoja_id));
+    }
+
+    public static function getKeskustelunAiheet($keskustelu_id) {
+
+        $query = DB::connection()->prepare('SELECT Aihe.nimi FROM Aihe, Keskusteluaihe WHERE Aihe.id = Keskusteluaihe.aihe_id AND Keskusteluaihe.keskustelu_id = :id');
+        $query->execute(array('id' => $keskustelu_id));
+
+        $rows = $query->fetchAll();
+        $aiheet = array();
+
+        foreach ($rows as $row) {
+            $aiheet[] = $row['nimi'];
+        }
+
+        return $aiheet;
     }
 
     public function validate_nimi() {

@@ -39,10 +39,9 @@
 
         {% for aihe in aiheet %}
 
-
         <tr>
-            <td>{{aihe.nimi}}</td>
-            <td><a href="#">{{aihe.luoja_ktunnus}}</td>
+            <td><a href="{{base_path}}/aihelistaus/{{aihe.id}}">{{aihe.nimi}}</a></td>
+            <td><a href="{{base_path}}/kayttajalistaus/{{aihe.luoja_id}}">{{aihe.luoja_ktunnus}}</td>
             <td>{{aihe.luontiaika}}</td>
             <td>{{aihe.keskustelujen_maara}}</td>
             <td><a class="btn btn-default btn-sm" href="{{base_path}}/aihelistaus/{{aihe.id}}/edit">muokkaa</a></td>

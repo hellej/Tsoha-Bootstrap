@@ -39,16 +39,9 @@ class AiheController extends BaseController {
         self::check_logged_in();
 
         $params = $_POST;
-
-        $userid = $_SESSION['user'];
-
-        $attributes = array(
-            'nimi' => $params['nimi'],
-            'luoja_id' => $userid
-        );
-
-        $aihe = new Aihe($attributes);
-
+        
+        $aihe = new Aihe(self::getAndSetAttributes($params));
+        
         $errors = $aihe->errors();
 
         if (count($errors) == 0) {
@@ -57,6 +50,18 @@ class AiheController extends BaseController {
         } else {
             Redirect::to('/aihelistaus/uusi', array('errors' => $errors));
         }
+    }
+
+    public static function getAndSetAttributes($params) {
+
+        $userid = $_SESSION['user'];
+
+        $attributes = array(
+            'nimi' => $params['nimi'],
+            'luoja_id' => $userid
+        );
+        return $attributes;
+        
     }
 
     public static function destroy($id) {

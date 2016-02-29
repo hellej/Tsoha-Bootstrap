@@ -65,7 +65,7 @@
         <tr>
             <td width="20%"> {{vastine.aika}}</td>
             <td width="30%"> <a href="{{base_path}}/kayttajalistaus/{{vastine.kirjoittaja_id}}">{{vastine.kirjoittaja_ktunnus}}</a></td>
-            <td width="40%"> <a href="{{base_path}}/vastinelistaus/{{vastine.keskustelu_id}}">{{vastine.keskustelu_otsikko}}</a></td>
+            <td width="40%"> <a href="{{base_path}}/keskustelulistaus/{{vastine.keskustelu_id}}">{{vastine.keskustelu_otsikko}}</a></td>
 
         </tr>
     </tbody>
@@ -91,7 +91,7 @@
     <tbody>
         <tr>
             <td width="20"> {{keskustelu.aika}} </td>
-            <td width="30%"> <a href="{{base_path}}/vastinelistaus/{{keskustelu.id}}">{{keskustelu.otsikko}}</a> </td>
+            <td width="30%"> <a href="{{base_path}}/keskustelulistaus/{{keskustelu.id}}">{{keskustelu.otsikko}}</a> </td>
             <td width="30%"> <a href="{{base_path}}/kayttajalistaus/{{keskustelu.luoja_id}}">{{keskustelu.luoja_ktunnus}}</a></td>
             <td width="30%"> {{keskustelu.viestienmaara}}</td>
         </tr>

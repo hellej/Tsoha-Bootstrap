@@ -3,8 +3,7 @@
 
 
 <h3>{{keskustelu.otsikko}}  <small>Käyttäjältä: </small> 
-    {{keskustelu.luoja_ktunnus}} 
-    
+    <a href="{{base_path}}/kayttajalistaus/{{keskustelu.luoja_id}}">{{keskustelu.luoja_ktunnus}}</a>
     <small> {{keskustelu.aika}}
         Aiheet: 
         {% for aihe in aiheet %}
@@ -28,7 +27,7 @@
 <br>
 
 
-<form id="form-group" method="post" action="{{base_path}}/vastinelistaus/{{keskustelu.id}}">
+<form id="form-group" method="post" action="{{base_path}}/keskustelulistaus/{{keskustelu.id}}">
     <div class="input-group" >
         <textarea placeholder="Kirjoita vastaus keskusteluun tänne..." name="sisalto" class="form-control custom-control" rows="6" style="resize:none"></textarea>     
         <span class="input-group-addon">                                            

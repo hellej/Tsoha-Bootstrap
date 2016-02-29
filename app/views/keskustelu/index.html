@@ -4,16 +4,18 @@
 {% if options %}
 <h1>
     <small>
-        Keskustelut hakusanalla: 
+        Viimeisimmät keskustelut hakusanalla: 
     </small>
     "{{options.search_ktunnus}}{{options.search_aihe}}"
 </h1>
 
 {% else %}
 
+<h1>Viimeisimmät keskustelut</h1>
+
 {% endif %}
 
-<h1>Viimeisimmät keskustelut</h1>
+
 
 <br>
 
@@ -28,12 +30,12 @@
 
 {% for keskustelu in keskustelut %}
 
-<h3>    <a href="{{base_path}}/vastinelistaus/{{keskustelu.id}}">
+<h3>    <a href="{{base_path}}/keskustelulistaus/{{keskustelu.id}}">
         {{keskustelu.otsikko}}</a>  
     <small> Vastauksia: {{keskustelu.viestienmaara}} </small> 
     &nbsp 
     <small>Aloittaja: </small> 
-    {{keskustelu.luoja_ktunnus}} <small>{{keskustelu.aika}}
+    <a href="{{base_path}}/kayttajalistaus/{{keskustelu.luoja_id}}">{{keskustelu.luoja_ktunnus}}</a> <small>{{keskustelu.aika}}
         &nbsp  
         Aiheet: 
         {% for aihe in keskustelu.aiheet %}

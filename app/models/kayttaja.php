@@ -53,23 +53,13 @@ class Kayttaja extends BaseModel {
                 'salasana' => $row['salasana'],
                 'yllapitaja' => $row['yllapitaja'],
                 'kuvaus' => $row['kuvaus'],
-                'viesteja' => Kayttaja::viesteja($id)));
+                'viesteja' => Vastine::getKayttajanVastineidenMaara($id)));
 
             return $kayttaja;
         }
         return null;
     }
 
-    public static function viesteja($id) {
-
-        $query = DB::connection()->prepare('SELECT COUNT(id) FROM Vastine WHERE kirjoittaja_id = :id');
-        $query->execute(array('id' => $id));
-        $row = $query->fetch();
-        $maara = $row['count'];
-//        Kint::dump($maara);
-
-        return $maara;
-    }
 
     public static function authenticate($ktunnus, $salasana) {
 
@@ -154,6 +144,10 @@ class Kayttaja extends BaseModel {
     }
 
     public function validate_sposti() {
+
+        if (strpos($this->sposti, '@') == false) {
+            return "sähköpostin pitää sisältää @ merkki";
+        }
 
         return $this->validate_string_length('sähköposti', $this->sposti, 5);
     }
