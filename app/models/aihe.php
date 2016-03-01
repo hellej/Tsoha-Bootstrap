@@ -42,12 +42,13 @@ class Aihe extends BaseModel {
 
     public static function getAttributes($row) {
 
+
         $attributes = array(
             'id' => $row['id'],
             'nimi' => $row['nimi'],
             'luoja_id' => $row['luoja_id'],
             'luoja_ktunnus' => self::getLuojaKtunnus($row),
-            'luontiaika' => $row['luontiaika'],
+            'luontiaika' => self::roundTimeStampToDate($row),
             'keskustelujen_maara' => self::getKeskustelujenMaara($row['id']));
 
         return $attributes;
@@ -88,6 +89,7 @@ class Aihe extends BaseModel {
 
         $query = DB::connection()->prepare('DELETE FROM Aihe WHERE id = :id');
         $query->execute(array('id' => $this->id));
+        
     }
 
     public function update() {

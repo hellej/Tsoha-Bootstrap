@@ -13,14 +13,12 @@ class BaseController {
 
         return null;
     }
-    
+
     public static function get_user_moderator() {
-        
+
         $user = self::get_user_logged_in();
         return $user->yllapitaja;
-       
     }
-    
 
     public static function check_logged_in() {
         // Toteuta kirjautumisen tarkistus tähän.

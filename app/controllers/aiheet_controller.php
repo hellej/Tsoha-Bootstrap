@@ -39,9 +39,9 @@ class AiheController extends BaseController {
         self::check_logged_in();
 
         $params = $_POST;
-        
+
         $aihe = new Aihe(self::getAndSetAttributes($params));
-        
+
         $errors = $aihe->errors();
 
         if (count($errors) == 0) {
@@ -61,7 +61,6 @@ class AiheController extends BaseController {
             'luoja_id' => $userid
         );
         return $attributes;
-        
     }
 
     public static function destroy($id) {
@@ -84,12 +83,16 @@ class AiheController extends BaseController {
             'luontiaika' => $vanhaaihe->luontiaika,
             'luoja_id' => $vanhaaihe->luoja_id
         );
-
         $aihe = new Aihe($attributes);
 
-        $aihe->update();
+        $errors = $aihe->errors();
 
-        Redirect::to('/aihelistaus/' . $aihe->id, array('message' => 'Aiheen muokkaus onnistui'));
+        if (count($errors) == 0) {
+            $aihe->update();
+            Redirect::to('/aihelistaus/' . $aihe->id, array('message' => 'Aiheen muokkaus onnistui'));
+        } else {
+            View::make('aihe/edit.html', array('aihe' => $aihe, 'errors' => $errors));
+        }
     }
 
 }

@@ -20,6 +20,16 @@ class KeskusteluController extends BaseController {
         View::make('keskustelu/index.html', array('keskustelut' => $keskustelut, 'options' => $options));
     }
 
+    public static function edit($id) {
+
+        $keskustelu = Keskustelu::find($id);
+
+        self::editingOwnOrBeingModerator($keskustelu);
+
+        $aiheet = Aihe::all();
+        View::make('keskustelu/edit.html', array('keskustelu' => $keskustelu, 'aiheet' => $aiheet));
+    }
+
     public static function readSearchTerms($params) {
 
         $options = array();
@@ -39,7 +49,6 @@ class KeskusteluController extends BaseController {
         }
 
         return $options;
-        
     }
 
     public static function create() {
@@ -47,7 +56,6 @@ class KeskusteluController extends BaseController {
 
         $aiheet = Aihe::all();
         View::make('keskustelu/uusi.html', array('aiheet' => $aiheet));
-        
     }
 
     public static function store() {
@@ -55,7 +63,8 @@ class KeskusteluController extends BaseController {
 
         $params = $_POST;
 
-        $keskustelu = new Keskustelu(self::setAndGetAttributes($params));
+        $attributes = self::setAndGetAttributes($params);
+        $keskustelu = new Keskustelu($attributes);
 
         $errors = $keskustelu->errors();
 
@@ -63,8 +72,39 @@ class KeskusteluController extends BaseController {
             $keskustelu->save();
             Redirect::to('/keskustelulistaus/' . $keskustelu->id, array('message' => 'Onnistui!'));
         } else {
-            Redirect::to('/keskustelulistaus/uusi', array('errors' => $errors));
+            Redirect::to('/keskustelulistaus/uusi', array('errors' => $errors, 'attributes' => $attributes));
         }
+    }
+
+    public static function update($id) {
+
+        $params = $_POST;
+
+        $attributes = self::setAndGetAttributes($params);
+        $keskustelu = new Keskustelu($attributes);
+        $keskustelu->id = $id;
+
+        self::editingOwnOrBeingModerator($keskustelu);
+
+        $errors = $keskustelu->errors();
+
+        if (count($errors) > 0) {
+            View::make('keskustelu/edit.html', array('errors' => $errors, 'keskustelu' => $keskustelu));
+        } else {
+            $keskustelu->update();
+            Redirect::to('/keskustelulistaus/' . $keskustelu->id, array('message' => 'Keskustelu muokattu onnistuneesti!'));
+        }
+    }
+
+    public static function destroy($id) {
+
+        $keskustelu = Keskustelu::find($id);
+
+        self::editingOwnOrBeingModerator($keskustelu);
+
+        $keskustelu->destroy();
+
+        Redirect::to('/keskustelulistaus', array('message' => 'Keskustelu ja sen vastineet poistettu!'));
     }
 
     public static function setAndGetAttributes($params) {
@@ -96,6 +136,18 @@ class KeskusteluController extends BaseController {
         }
 
         return $attributes;
+    }
+
+    public static function editingOwnOrBeingModerator($keskustelu) {
+
+        self::check_logged_in();
+
+        $userid = $_SESSION['user'];
+        $user = Kayttaja::find($userid);
+        
+        if ($keskustelu->luoja_id != $userid && !$user->yllapitaja) {
+            Redirect::to('/keskustelulistaus/' . $keskustelu->id, array('error' => 'Vain ylläpitäjä voi muokata muiden käyttäjien aloittamia keskusteluita!'));
+        }
     }
 
 }

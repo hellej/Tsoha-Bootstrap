@@ -15,6 +15,9 @@ class Kayttaja extends BaseModel {
 
         $this->validators = array('validate_nimi', 'validate_ktunnus', 'validate_sposti',
             'validate_salasana');
+        
+        $this->validators_KayttajaUpdate = array('validate_nimi', 'validate_ktunnus_update', 'validate_sposti',
+            'validate_salasana');
     }
 
     public static function all() {
@@ -149,7 +152,11 @@ class Kayttaja extends BaseModel {
         }
 
         return $this->validate_string_length('käyttäjätunnus', $this->ktunnus, 3);
-        
+    }
+
+    public function validate_ktunnus_update() {
+
+        return $this->validate_string_length('käyttäjätunnus', $this->ktunnus, 3);
     }
 
     public function validate_sposti() {

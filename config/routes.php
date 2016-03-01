@@ -78,6 +78,15 @@ $routes->get('/keskustelulistaus', function() {
 $routes->get('/keskustelulistaus/uusi', function() {
     KeskusteluController::create();
 });
+$routes->get('/keskustelulistaus/:id/edit', function($id) {
+    KeskusteluController::edit($id);
+});
+$routes->post('/keskustelulistaus/:id/edit', function($id) {
+    KeskusteluController::update($id);
+});
+$routes->get('/keskustelulistaus/:id/destroy', function($id) {
+    KeskusteluController::destroy($id);
+});
 
 
 $routes->get('/keskustelulistaus/:id', function($id) {

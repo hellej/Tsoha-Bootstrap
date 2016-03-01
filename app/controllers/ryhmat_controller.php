@@ -51,7 +51,7 @@ class RyhmaController extends BaseController {
             $ryhma->save();
             Redirect::to('/ryhmalistaus', array('message' => 'Ryhmä tallennettu'));
         } else {
-            View::make('ryhma/uusi.html', array('errors' => $errors));
+            View::make('ryhma/uusi.html', array('errors' => $errors, 'attributes' => $attributes));
         }
         
     }

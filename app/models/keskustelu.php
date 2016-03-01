@@ -11,9 +11,8 @@ class Keskustelu extends BaseModel {
     public $id, $otsikko, $sisalto, $aika, $luoja_id, $luoja_ktunnus, $viestienmaara, $aiheet;
 
     public function __construct($attributes) {
-        
-        parent::__construct($attributes);
 
+        parent::__construct($attributes);
         $this->validators = array('validate_otsikko', 'validate_sisalto');
     }
 
@@ -51,7 +50,7 @@ class Keskustelu extends BaseModel {
             'id' => $row['id'],
             'otsikko' => $row['otsikko'],
             'sisalto' => $row['sisalto'],
-            'aika' => $row['aika'],
+            'aika' => self::roundTimeStampToTime($row),
             'luoja_id' => $row['luoja_id'],
             'luoja_ktunnus' => $row['ktunnus'],
             'viestienmaara' => Vastine::getKeskustelunVastineidenMaara($row['id']),
@@ -122,6 +121,31 @@ class Keskustelu extends BaseModel {
         }
     }
 
+    public function update() {
+
+        $query = DB::connection()->prepare('UPDATE Keskustelu SET otsikko = :otsikko, sisalto = :sisalto WHERE id = :id');
+        $query->execute(array('otsikko' => $this->otsikko, 'sisalto' => $this->sisalto, 'id' => $this->id));
+
+        $queryresetaiheet = DB::connection()->prepare('DELETE FROM Keskusteluaihe WHERE keskustelu_id = :keskustelu_id');
+        $queryresetaiheet->execute(array('keskustelu_id' => $this->id));
+
+        foreach ($this->aiheet as $aihe) {
+            $query = DB::connection()->prepare('INSERT INTO Keskusteluaihe (aihe_id, keskustelu_id) Values(:aihe_id, :keskustelu_id)');
+            $query->execute(array('aihe_id' => $aihe, 'keskustelu_id' => $this->id));
+        }
+    }
+
+    public function destroy() {
+
+        $queryDone = DB::connection()->prepare('DELETE FROM Keskusteluaihe WHERE keskustelu_id = :id');
+        $queryDone->execute(array('id' => $this->id));
+
+        $queryTwo = DB::connection()->prepare('DELETE FROM Vastine WHERE keskustelu_id = :id');
+        $queryTwo->execute(array('id' => $this->id));
+
+        $query = DB::connection()->prepare('DELETE FROM Keskustelu WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }
 
     public function validate_otsikko() {
 
@@ -132,6 +156,5 @@ class Keskustelu extends BaseModel {
 
         return $this->validate_string_length('sisältö', $this->sisalto, 3);
     }
-    
 
 }

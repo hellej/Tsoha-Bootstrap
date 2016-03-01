@@ -41,7 +41,6 @@ class Vastine extends BaseModel {
         }
 
         return null;
-        
     }
 
     public static function getAttributes($row) {
@@ -49,7 +48,7 @@ class Vastine extends BaseModel {
         $attributes = array(
             'id' => $row['id'],
             'sisalto' => $row['sisalto'],
-            'aika' => $row['aika'],
+            'aika' => self::roundTimeStampToTime($row),
             'keskustelu_id' => $row['keskustelu_id'],
             'kirjoittaja_id' => $row['kirjoittaja_id'],
             'kirjoittaja_ktunnus' => $row['ktunnus'],
@@ -74,7 +73,7 @@ class Vastine extends BaseModel {
         foreach ($rows as $row) {
             $vastineet[] = new Vastine(self::getAttributes($row));
         }
-        
+
         return $vastineet;
     }
 

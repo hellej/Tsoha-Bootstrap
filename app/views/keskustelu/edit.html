@@ -24,15 +24,15 @@
 {% endif %}
 
 
-<h2>Aloita uusi keskustelu</h2>
+<h2>Muokkaa keskustelua</h2>
 <br>
 
 
-<form id="form-group" method="post" action="{{base_path}}/keskustelu">
+<form id="form-group" method="post" action="{{base_path}}/keskustelulistaus/{{keskustelu.id}}/edit">
 
     <div class="input-group" >
-        <textarea placeholder="Otsikko" name="otsikko" class="form-control custom-control" rows="1" style="resize:none">{{attributes.otsikko}}</textarea> 
-        <textarea placeholder="Kirjoita keskustelun avaus tänne" name="sisalto" class="form-control custom-control" rows="6" style="resize:none">{{attributes.sisalto}}</textarea> 
+        <textarea placeholder="Otsikko" name="otsikko" class="form-control custom-control" rows="1" style="resize:none">{{keskustelu.otsikko}}</textarea> 
+        <textarea placeholder="Kirjoita keskustelun avaus tänne" name="sisalto" class="form-control custom-control" rows="6" style="resize:none">{{keskustelu.sisalto}}</textarea> 
         <br>
         <label>Liitä keskustelu aiheisiin (valitse useampi ctrl (tai cmd) pohjassa): </label>
         <select class="form-control" name="aiheet[]" multiple="">
@@ -50,13 +50,20 @@
 </form>
 
 
-
 <br><br>
 
 <a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus" 
    class="btn btn-default">Selaa keskusteluita</a>
 
 <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" class="btn btn-default">Palaa etusivulle</a>
+
+<br><br>
+
+<p>
+    <a href="{{base_path}}/keskustelulistaus/{{keskustelu.id}}/destroy" class="btn btn-danger">Poista keskustelu</a>
+</p>
+
+
 
 
 {% endblock %}

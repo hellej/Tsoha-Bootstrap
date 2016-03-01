@@ -2,16 +2,20 @@
 {% block content %}
 
 
-<h3>{{keskustelu.otsikko}}  <small>Käyttäjältä: </small> 
+<h3>{{keskustelu.otsikko}}<small> &nbsp  Käyttäjältä: </small> 
     <a href="{{base_path}}/kayttajalistaus/{{keskustelu.luoja_id}}">{{keskustelu.luoja_ktunnus}}</a>
-    <small> {{keskustelu.aika}}
+    <small> {{keskustelu.aika}} &nbsp 
         Aiheet: 
         {% for aihe in aiheet %}
-        {{aihe}}  
+        {{aihe}} 
         {% endfor %}
     </small></h3>
 
 {{keskustelu.sisalto}}
+
+<br><br>
+
+<a href="{{base_path}}/keskustelulistaus/{{keskustelu.id}}/edit" class="btn btn-default">Jos olet ylläpitäjä tai keskustelun aloittaja, voit muokata tai poistaa keskustelun täältä</a>
 
 <br><br>
 
@@ -55,6 +59,14 @@
 <div class="alert alert-success">
     <ul>
         <li>{{message}}</li>
+    </ul>
+</div>
+{% endif %}
+
+{% if error %}
+<div class="alert alert-danger">
+    <ul>
+        <li>{{error}}</li>
     </ul>
 </div>
 {% endif %}

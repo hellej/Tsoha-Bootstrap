@@ -87,10 +87,10 @@ class KayttajaController extends BaseController {
         $kayttaja = new Kayttaja(self::setAndGetAttributes($params));
         $kayttaja->id = $id;
 
-        $errors = $kayttaja->errors();
+        $errors = $kayttaja->errorsWhenUpdatingKayttaja();
 
         if (count($errors) > 0) {
-            View::make('kayttaja/edit.html', array('errors' => $errors, 'kayttaja' => $attributes));
+            View::make('kayttaja/edit.html', array('errors' => $errors, 'kayttaja' => $kayttaja));
         } else {
             $kayttaja->update();
             Redirect::to('/kayttajalistaus/' . $kayttaja->id, array('message' => 'Käyttäjätiedot muokattu onnistuneesti!'));

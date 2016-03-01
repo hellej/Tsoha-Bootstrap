@@ -36,7 +36,7 @@ CREATE TABLE Keskustelu(
 id SERIAL PRIMARY KEY,
 otsikko varchar(40) NOT NULL,
 sisalto varchar(400) NOT NULL,
-aika date,
+aika timestamp,
 luoja_id INTEGER REFERENCES Kayttaja(id)
 );
 
