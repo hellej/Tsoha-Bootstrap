@@ -32,7 +32,6 @@
             <th>Käyttäjätunnus</th>
             <th>Nimi</th>
             <th>Sähköposti</th>
-            <th>Salasana</th>
             <th></th>
             <th></th>
         </tr>
@@ -45,7 +44,6 @@
             <td><a href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}">{{kayttaja.ktunnus}}</td>
             <td>{{kayttaja.nimi}}</td>
             <td>{{kayttaja.sposti}}</td>
-            <td>{{kayttaja.salasana}}</td>
             <td><a class="btn btn-default btn-sm" href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/edit">muokkaa</a></td>
             <td>
                 <form method="post" action="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/destroy" style="display: inline-block;"

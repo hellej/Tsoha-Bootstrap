@@ -60,7 +60,6 @@ class Kayttaja extends BaseModel {
         return null;
     }
 
-
     public static function authenticate($ktunnus, $salasana) {
 
 
@@ -140,7 +139,17 @@ class Kayttaja extends BaseModel {
 
     public function validate_ktunnus() {
 
+        $query = DB::connection()->prepare('SELECT COUNT(id) FROM Kayttaja WHERE ktunnus = :ktunnus');
+        $query->execute(array('ktunnus' => $this->ktunnus));
+        $row = $query->fetch();
+        $maara = $row['count'];
+
+        if ($maara != 0) {
+            return "Käyttäjätunnus on käytössä!";
+        }
+
         return $this->validate_string_length('käyttäjätunnus', $this->ktunnus, 3);
+        
     }
 
     public function validate_sposti() {
@@ -148,7 +157,6 @@ class Kayttaja extends BaseModel {
         if (strpos($this->sposti, '@') == false) {
             return "sähköpostin pitää sisältää @ merkki";
         }
-
         return $this->validate_string_length('sähköposti', $this->sposti, 5);
     }
 

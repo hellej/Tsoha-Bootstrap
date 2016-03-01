@@ -101,7 +101,8 @@ class KayttajaController extends BaseController {
 
         $params = $_POST;
 
-        $kayttaja = new Kayttaja(self::setAndGetAttributes($params));
+        $attributes = self::setAndGetAttributes($params);
+        $kayttaja = new Kayttaja($attributes);
         $errors = $kayttaja->errors();
 
         if (count($errors) == 0) {
@@ -116,9 +117,11 @@ class KayttajaController extends BaseController {
     public static function setAndGetAttributes($params) {
 
         $yllapitaja = self::userIsModerator($params);
+        
+        $ktunnus = trim($params['ktunnus']," ");
 
-        $attributes = array(
-            'ktunnus' => $params['ktunnus'],
+        $ownattributes = array(
+            'ktunnus' => $ktunnus,
             'nimi' => $params['nimi'],
             'sposti' => $params['sposti'],
             'salasana' => $params['salasana'],
@@ -126,7 +129,7 @@ class KayttajaController extends BaseController {
             'kuvaus' => $params['kuvaus'],
             'ryhmat' => array());
 
-        $attributes = self::getAndSetRyhmat($params, $attributes);
+        $attributes = self::getAndSetRyhmat($params, $ownattributes);
 
         return $attributes;
     }

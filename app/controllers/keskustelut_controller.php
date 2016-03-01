@@ -13,7 +13,7 @@ class KeskusteluController extends BaseController {
 
         $params = $_POST;
 
-//KATSOTAAN MITÄ HAKUSANOJA SAATIIN:
+//KATSOTAAN MITÄ HAKUSANOJA SAATIIN JOS SAATIIN:
         $options = self::readSearchTerms($params);
 
         $keskustelut = Keskustelu::all($options);
