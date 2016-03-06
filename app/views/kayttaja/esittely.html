@@ -26,7 +26,7 @@
     <li><strong>Sähköposti: </strong> {{kayttaja.sposti}}</li>
     <li>
         {% if kayttaja.yllapitaja %} 
-        <label class="label label-default">Ylläpitäjä </label>
+        <label class="label label-primary">Ylläpitäjä </label>
         {% else %} 
         <label class="label label-default">Peruskäyttäjä </label>
         {% endif %}
@@ -34,12 +34,13 @@
     <li><strong>Viestejä: </strong> {{kayttaja.viesteja}}</li>
     <li><strong>Ryhmät: </strong> {% for ryhma in ryhmat %}
 
-        {{ryhma}}  
+        <span class="badge">{{ryhma}}  </span>
 
         {% endfor %}</li>
 
 </ul>
 
+<h4>Esittely: </h4>
 <p> {{kayttaja.kuvaus}} </p>
 
 

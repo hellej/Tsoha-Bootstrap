@@ -14,7 +14,7 @@ VALUES('matti', 'Matti Mannonen', 'matti@helsinki.fi', 'aurinko', 'FALSE', 'Lore
 -- INSERT INTO Ryhmakayttaja (ryhma_id, kayttaja_id)
 -- VALUES(1,1);
 
-INSERT INTO Aihe (nimi, luontiaika) VALUES('varasto', NOW());
+INSERT INTO Aihe (nimi, luontiaika, luoja_id) VALUES('varasto', NOW(), 2);
 
 INSERT INTO Keskustelu(otsikko, sisalto, aika, luoja_id) 
 VALUES('keskustelu yksi', 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed posuere interdum sem. Quisque ligula eros ullamcorper quis, lacinia quis facilisis sed sapien. Mauris varius diam vitae arcu. Sed arcu lectus auctor vitae, consectetuer et venenatis eget velit. Sed augue orci, lacinia eu tincidunt et eleifend nec lacus. Donec ultricies nisl ut felis, suspendisse potenti.', NOW(), 2);

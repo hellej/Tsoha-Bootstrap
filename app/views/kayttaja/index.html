@@ -32,8 +32,10 @@
             <th>Käyttäjätunnus</th>
             <th>Nimi</th>
             <th>Sähköposti</th>
-            <th></th>
-            <th></th>
+            <th>Viestejä</th>
+            <th>Käyttäjäätyyppi</th>
+            <th>Muokkaus</th>
+            <th>Poisto</th>
         </tr>
     </thead>
 
@@ -44,16 +46,27 @@
             <td><a href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}">{{kayttaja.ktunnus}}</td>
             <td>{{kayttaja.nimi}}</td>
             <td>{{kayttaja.sposti}}</td>
-            <td><a class="btn btn-default btn-sm" href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/edit">muokkaa</a></td>
+            <td> <span class="badge"> {{kayttaja.viesteja}} </span></td>
+            
+            
+            <td> {% if kayttaja.yllapitaja %}
+                <label class="label label-primary">Ylläpitäjä</label>
+                {% else %}
+                <label class="label label-default">Peruskäyttäjä</label>
+                {% endif %} 
+            </td>
+            
+            <td><a class="btn-link" href="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/edit">muokkaa</a> </td>
+           
             <td>
                 <form method="post" action="{{base_path}}/kayttajalistaus/{{kayttaja.id}}/destroy" style="display: inline-block;"
                       class="destroy-form" data-confirm="Oletko varma!? Käyttäjän viestit ja keskustelut eivät poistu, mutta niiden kirjoittajaksi merkitään 'poistettu käyttäjä' ">
-                    <button type="submit" class="btn btn-danger"
+                    <button type="submit" class=" btn-danger"
                             >{{text|default('Poista')}}
                     </button>
                 </form>
-
             </td>
+            
         </tr>
         {% endfor %}
     </tbody>

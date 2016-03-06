@@ -32,7 +32,7 @@
     <a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/uusi" 
        class="btn btn-success">Aloita uusi keskustelu</a>
     <a href="http://joohelle.users.cs.helsinki.fi/helle/foorumi" 
-       class="btn btn-primary">Palaa etusivulle</a>
+       class="btn btn-default">Palaa etusivulle</a>
 </p>
 
 
@@ -41,14 +41,16 @@
 
 <h3>    <a href="{{base_path}}/keskustelulistaus/{{keskustelu.id}}">
         {{keskustelu.otsikko}}</a>  
-    <small> Vastauksia: {{keskustelu.viestienmaara}} </small> 
+    <small>  Vastauksia: <span class="badge"> {{keskustelu.viestienmaara}} </span></small> 
     &nbsp 
     <small>Aloittaja: </small> 
-    <a href="{{base_path}}/kayttajalistaus/{{keskustelu.luoja_id}}">{{keskustelu.luoja_ktunnus}}</a> <small>{{keskustelu.aika}}
+    <a href="{{base_path}}/kayttajalistaus/{{keskustelu.luoja_id}}">{{keskustelu.luoja_ktunnus}}</a> <small>
+        &nbsp 
+        <span class="badge"> {{keskustelu.aika}} </span>
         &nbsp  
         Aiheet: 
         {% for aihe in keskustelu.aiheet %}
-        {{aihe}} &nbsp  
+        <span class="badge">{{aihe}}</span>  
         {% endfor %}
     </small>
 </h3>

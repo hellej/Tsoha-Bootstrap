@@ -53,7 +53,7 @@ class BaseModel {
 
         $rawtime = $row['aika'];
         $timestamp = strtotime($rawtime);
-        return date("j.n.Y G.i", $timestamp);
+        return date("j.n.Y G:i", $timestamp);
     }
 
     public function roundTimeStampToDate($row) {

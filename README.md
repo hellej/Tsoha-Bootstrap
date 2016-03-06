@@ -11,11 +11,14 @@ käyttäjä: helle, salasana: aurinko
 
 ## Listaus-, esittely-, muokkaus- ja muita sivuja:
 
+* [käyttäjän lisäys](http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/uusi)
 * [käyttäjien listaus](http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus)
 * [käyttäjän esittely] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/2)
-* [käyttäjän muokkaus] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/2/edit)
+* [käyttäjän muokkaus tai poisto] (http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/2/edit)
+* [keskustelujen lisäys] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/uusi)
 * [keskustelujen listaus] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus)
-* [keskustelun vastineiden listaus] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/1)
+* [keskustelun esittely] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/1)
+* [keskustelun muokkaus tai poisto] (http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/1/edit)
 * [aiheiden listaus] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus)
 * [aiheen lisäys] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus/uusi)
 * [aiheen muokkaus] (http://joohelle.users.cs.helsinki.fi/helle/aihelistaus/1/edit)

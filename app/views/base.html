@@ -41,7 +41,7 @@
 
                     {% if user_logged_in %}
                     <ul class="nav navbar-nav">
-                        <li><a href="{{base_path}}/kayttajalistaus {{user_logged_id.id}} ">Olet kirjautuneena sisään käyttäjänä: {{user_logged_in.nimi}}</a></li>
+                        <li><a href="{{base_path}}/kayttajalistaus {{user_logged_id.id}} ">Olet kirjautuneena sisään käyttäjänä: {{user_logged_in.ktunnus}}</a></li>
                     </ul>
                     {% else %}
 
@@ -52,17 +52,27 @@
                     {% endif %}
 
                     {% if user_logged_in %}
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">
                         <li><a href="http://joohelle.users.cs.helsinki.fi/helle/logout">Kirjaudu ulos</a></li>
                     </ul>
                     {% else %}
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav">
                         <li><a href="http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus/uusi">Rekisteröidy foorumille</a></li>
                     </ul>
                     {% endif %}
+                    
+                    
 
                 </div>
             </div>
+
+            <ul class="nav nav-pills">
+                <li role="presentation" class="active"><a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus/uusi">Uusi keskustelu</a></li>
+                <li role="presentation" ><a href="http://joohelle.users.cs.helsinki.fi/helle/keskustelulistaus">Keskustelut</a></li>
+                <li role="presentation" ><a href="http://joohelle.users.cs.helsinki.fi/helle/aihelistaus" >Aiheet</a></li>
+                <li role="presentation" ><a href="http://joohelle.users.cs.helsinki.fi/helle/ryhmalistaus">Ryhmät</a></li>
+                <li role="presentation" ><a href="http://joohelle.users.cs.helsinki.fi/helle/kayttajalistaus">Käyttäjät</a></li>
+            </ul>
         </nav>
 
         <div id="main-container">

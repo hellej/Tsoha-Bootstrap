@@ -15,7 +15,7 @@ class Kayttaja extends BaseModel {
 
         $this->validators = array('validate_nimi', 'validate_ktunnus', 'validate_sposti',
             'validate_salasana');
-        
+
         $this->validators_KayttajaUpdate = array('validate_nimi', 'validate_ktunnus_update', 'validate_sposti',
             'validate_salasana');
     }
@@ -28,16 +28,8 @@ class Kayttaja extends BaseModel {
         $kayttajat = array();
 
         foreach ($rows as $row) {
-            $kayttajat[] = new Kayttaja(array(
-                'id' => $row['id'],
-                'ktunnus' => $row['ktunnus'],
-                'nimi' => $row['nimi'],
-                'sposti' => $row['sposti'],
-                'salasana' => $row['salasana'],
-                'yllapitaja' => $row['yllapitaja'],
-                'kuvaus' => $row['kuvaus']));
+            $kayttajat[] = new Kayttaja(self::getAttributes($row));
         }
-
         return $kayttajat;
     }
 
@@ -48,16 +40,7 @@ class Kayttaja extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $kayttaja = new Kayttaja(array(
-                'id' => $row['id'],
-                'ktunnus' => $row['ktunnus'],
-                'nimi' => $row['nimi'],
-                'sposti' => $row['sposti'],
-                'salasana' => $row['salasana'],
-                'yllapitaja' => $row['yllapitaja'],
-                'kuvaus' => $row['kuvaus'],
-                'viesteja' => Vastine::getKayttajanVastineidenMaara($id)));
-
+            $kayttaja = new Kayttaja(self::getAttributes($row));
             return $kayttaja;
         }
         return null;
@@ -71,18 +54,25 @@ class Kayttaja extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $user = new Kayttaja(array(
-                'id' => $row['id'],
-                'ktunnus' => $row['ktunnus'],
-                'nimi' => $row['nimi'],
-                'sposti' => $row['sposti'],
-                'salasana' => $row['salasana'],
-                'yllapitaja' => $row['yllapitaja'],
-                'kuvaus' => $row['kuvaus']));
-
+            $user = new Kayttaja(self::getAttributes($row));
             return $user;
         }
         return null;
+    }
+
+    public static function getAttributes($row) {
+
+        $attributes = array(
+            'id' => $row['id'],
+            'ktunnus' => $row['ktunnus'],
+            'nimi' => $row['nimi'],
+            'sposti' => $row['sposti'],
+            'salasana' => $row['salasana'],
+            'yllapitaja' => $row['yllapitaja'],
+            'kuvaus' => $row['kuvaus'],
+            'viesteja' => Vastine::getKayttajanVastineidenMaara($row['id']));
+
+        return $attributes;
     }
 
     public function save() {
